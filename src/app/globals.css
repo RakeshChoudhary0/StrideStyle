@@ -8,7 +8,7 @@
   --raw-primary-container: #f9f6f0;
   --raw-on-primary-container: #72706c;
   --raw-primary-fixed: #e5e2dc;
-  --raw-primary-fixed-dim: #c9c6c1;
+  --raw-primary-fixed-dim: #ffe7d5;
   --raw-on-primary-fixed: #1c1c18;
   --raw-on-primary-fixed-variant: #474743;
 
@@ -128,4 +128,21 @@
 body {
   background-color: var(--raw-background);
   color: var(--raw-on-background);
+}
+
+/* app/globals.css */
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
 }
