@@ -14,12 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="antialiased selection:bg-secondary selection:text-white">
+    <html lang="en" className="light" style={{ colorScheme: "light" }}>
+      <body className="antialiased">
         <Navbar />
         <main>{children}</main>
         <Footer />
       </body>
     </html>
   );
-}
+} 

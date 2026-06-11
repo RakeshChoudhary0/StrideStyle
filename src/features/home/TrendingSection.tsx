@@ -1,4 +1,5 @@
 import MinimalProductCard from "@/SharedComponent/ProductCard/minimalProductCard";
+import { ChevronRight } from "lucide-react";
 import React from "react";
 
 const PRODUCTS_DATA = [
@@ -48,15 +49,23 @@ const TrendingSection = () => {
   return (
     <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 bg-primary-fixed-dim py-16 md:py-28">
       <section className="max-w-7xl mx-auto">
-        <div className="text-left mb-12 md:mb-20 max-w-xl">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter text-on-tertiary-fixed-variant mb-4">
-            Trending Now
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg font-light text-inverse-surface leading-relaxed">
-            Selected by our community, curated for your wardrobe. Discover the{" "}
-            <br className="hidden sm:block" />
-            season’s most-wanted silhouettes.
-          </p>
+        <div className="flex justify-between mb-12 md:mb-20 flex-wrap  ">
+          <div className="text-left   max-w-xl">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter text-on-tertiary-fixed-variant mb-4">
+              Trending Now
+            </h2>
+            <p className="text-sm sm:text-base md:text-lg font-light text-inverse-surface leading-relaxed">
+              Selected by our community, curated for your wardrobe.
+              <br className="hidden sm:block" />
+              Discover the season’s most-wanted silhouettes.
+            </p>
+          </div>
+          <div>
+            <button className=" mt-10 md:mt-5 py-4 cursor-pointer px-7 text-xs   bg-on-tertiary-fixed/90 rounded-xl text-white  flex items-center gap-2 hover:scale-95 transition-all duration-300 backdrop-blur-2xl ">
+              <span>Move to Shop</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         <div className="w-full flex flex-wrap justify-center gap-6">
