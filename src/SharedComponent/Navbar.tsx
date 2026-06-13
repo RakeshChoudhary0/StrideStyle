@@ -12,6 +12,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState<string>("Home");
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -34,6 +35,7 @@ export default function Navbar() {
 
         <Link
           href="/"
+          onClick={() => setActive("")}
           className="text-xl md:text-2xl font-bold tracking-tighter text-secondary select-none"
         >
           STRIDE STYLE
@@ -42,8 +44,9 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-10">
           {NAV_LINKS.map((link) => (
             <Link
+              onClick={() => setActive(link.label)}
               key={link.href}
-              className="text-sm font-medium text-text-muted hover:text-secondary transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-secondary hover:after:w-full after:transition-all after:duration-300"
+              className={`text-sm font-medium text-text-muted hover:text-secondary transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-secondary hover:after:w-full after:transition-all after:duration-300 ${active == link.label ? `text-secondary after:bg-secondary after:w-full` : ``}  `}
               href={link.href}
             >
               {link.label}
@@ -68,6 +71,8 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
+
+      {/* mibile View */}
 
       <div
         className={`absolute top-0 left-0 h-screen inset-0 z-50 bg-surface-dim/90 backdrop-blur-3xl p-6 flex flex-col transform transition-transform duration-300 ease-in-out md:hidden ${

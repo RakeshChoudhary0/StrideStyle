@@ -1,7 +1,7 @@
 "use client";
 
 import HeroGallery from "./components/HeroGallery";
-
+import Link from "next/link";
 export default function Hero() {
   return (
     <div className="w-full md:h-[85vh] flex flex-col bg-background text-on-background overflow-y-auto md:overflow-hidden">
@@ -26,12 +26,12 @@ export default function Hero() {
           </div>
 
           <div className="flex justify-center md:justify-start mt-2">
-            <button
-              onClick={() => console.log("Shop Collection Action")}
+            <Link
+              href="/store"
               className="bg-on-background rounded-lg  text-background px-6 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-5 font-sans text-[11px] sm:text-[12px] uppercase tracking-[0.25em] font-semibold hover:bg-secondary hover:text-white transition-all duration-500 shadow-xl active:scale-95 z-30 min-h-[44px] w-full sm:w-auto"
             >
               Shop Collection
-            </button>
+            </Link>
           </div>
         </div>
 

@@ -37,7 +37,7 @@ export default function Footer() {
   );
 
   return (
-    <footer className="bg-on-secondary-fixed w-full md:min-h-[92vh] flex flex-col justify-between relative overflow-hidden select-none">
+    <footer className="bg-on-secondary-fixed w-full md:min-h-[94vh] flex flex-col justify-between relative overflow-hidden select-none">
       <div className="w-full px-4 sm:px-6 md:px-16 pt-24 pb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-6 max-w-[1440px] mx-auto z-10">
         <FooterLogoColumn />
 
