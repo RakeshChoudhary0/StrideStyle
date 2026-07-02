@@ -1,5 +1,5 @@
 import ArrivalsSection from "@/Features/LandingPage/Sections/ArrivalsSection";
-import CardSection from "@/Features/LandingPage/Sections/CardSection";
+import CardSection from "@/Features/LandingPage/Sections/ShowcaseSection";
 import DealsSection from "@/Features/LandingPage/Sections/DealsSection";
 import FollowOnInstagramSection from "@/Features/LandingPage/Sections/FollowOnInstagramSection";
 import HeroSection from "@/Features/LandingPage/Sections/HeroSection";

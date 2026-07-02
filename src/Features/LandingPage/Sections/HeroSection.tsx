@@ -88,7 +88,7 @@ const HeroSection = () => {
                   alt={product.title}
                   fill
                   sizes="(max-w-768px) 50vw, 25vw"
-                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                  className="w-full h-full object-cover transition-all duration-500"
                 />
 
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-black/10" />

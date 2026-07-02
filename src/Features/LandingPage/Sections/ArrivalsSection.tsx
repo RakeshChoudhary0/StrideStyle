@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ArrivalsSection = () => {
-  return (
-    <div>ArrivalsSection</div>
-  )
-}
+  return <div className="h-screen">ArrivalsSection</div>;
+};
 
-export default ArrivalsSection
+export default ArrivalsSection;
