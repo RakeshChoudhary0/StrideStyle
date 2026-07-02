@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { User, Home, Tag, Sparkles, Briefcase } from "lucide-react";
+import { User, Home, Tag, Sparkles, ShoppingBag, Layers } from "lucide-react";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: "Home", href: "/", icon: Home },
     { name: "Deals", href: "/deals", icon: Tag },
     { name: "New Arrivals", href: "/new-arrivals", icon: Sparkles },
-    { name: "Our Brands", href: "/brands", icon: Briefcase },
+    { name: "Our Brands", href: "/brands", icon: Layers },
   ];
 
   const getShortName = (name: string) => {
@@ -25,63 +25,81 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 hidden md:flex items-center justify-between px-12 pt-8 pb-4 bg-transparent select-none">
-        <div className="flex items-center gap-4">
-          <nav className="flex items-center bg-primary/50 backdrop-blur-xl px-2 py-2 rounded-full border border-white/10 shadow-xl">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-7 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 ${
-                    isActive
-                      ? "text-white bg-primary border border-white/10 shadow-md"
-                      : "text-white/80 hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-          </nav>
+      {/* Desktop Header */}
+      <header className="fixed top-0 left-0 w-full z-50 hidden md:grid grid-cols-3 items-center px-12 h-20 bg-white/70 backdrop-blur-md border-b border-zinc-200/60 select-none">
+        {/* Left Side Links */}
+        <nav className="flex items-center gap-6">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-xs uppercase tracking-widest font-semibold transition-all duration-200 relative py-1 ${
+                  isActive ? "text-primary" : "text-zinc-500 hover:text-primary"
+                }`}
+              >
+                {link.name}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary rounded-full" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Center Logotype — Clean Streetwear Aesthetic */}
+        <div className="flex justify-center">
           <Link
             href="/"
-            className="text-2xl font-black text-primary font-serif tracking-wider uppercase hover:opacity-80 transition-opacity"
+            className="text-xl font-streethead font-extrabold tracking-tighter uppercase text-primary transition-opacity"
           >
             StrideStyle
           </Link>
         </div>
 
-        <Link
-          href="/signup"
-          className="p-3.5 rounded-full bg-[#064469] hover:bg-[#5790ab] transition-all duration-200 hover:scale-105 active:scale-95"
-        >
-          <User className="text-white w-5 h-5" />
-        </Link>
+        {/* Right Side Utility Icons */}
+        <div className="flex items-center justify-end gap-4">
+          <Link
+            href="/account"
+            className="p-2 text-zinc-700 hover:text-primary hover:scale-105 transition-all duration-200"
+          >
+            <User className="w-5 h-5" strokeWidth={1.75} />
+          </Link>
+          <Link
+            href="/cart"
+            className="p-2 text-zinc-700 hover:text-primary hover:scale-105 transition-all duration-200 relative"
+          >
+            <ShoppingBag className="w-5 h-5" strokeWidth={1.75} />
+            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-accent animate-pulse" />
+          </Link>
+        </div>
       </header>
 
       {/* Mobile Header */}
-      <header className="fixed top-0 left-0 w-full z-40 md:hidden flex items-center justify-between px-4 pt-4 pb-3 bg-transparent">
+      <header className="fixed top-0 left-0 w-full z-40 md:hidden flex items-center justify-between px-6 h-16 bg-white/80 backdrop-blur-md border-b border-zinc-200/50">
         <Link
           href="/"
-          className="text-xl font-black text-primary font-serif tracking-wider uppercase hover:opacity-80 transition-opacity"
+          className="text-lg font-streethead font-extrabold tracking-tighter uppercase text-primary"
         >
           StrideStyle
         </Link>
 
-        <Link
-          href="/signup"
-          className="p-2.5 rounded-full bg-[#064469] hover:bg-[#5790ab] transition-all duration-200 hover:scale-105 active:scale-95"
-        >
-          <User className="text-white w-5 h-5" />
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/account" className="p-2 text-zinc-700">
+            <User className="w-[18px] h-[18px]" strokeWidth={2} />
+          </Link>
+          <Link href="/cart" className="p-2 text-zinc-700 relative">
+            <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={2} />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-accent" />
+          </Link>
+        </div>
       </header>
 
-      {/* Mobile Bottom Navigation */}
-      <nav className="fixed bottom-5 left-5 right-5 z-50 md:hidden">
-        <div className="relative bg-primary/90 rounded-full backdrop-blur-3xl border border-white/10 shadow-2xl">
-          <div className="flex items-center justify-around px-2 py-2.5">
+      {/* Mobile Bottom Float-Navigation (Snitch Style App-feel) */}
+      <nav className="fixed bottom-6 left-6 right-6 z-50 md:hidden">
+        <div className="relative bg-primary/95 rounded-2xl backdrop-blur-lg border border-white/5 shadow-xl">
+          <div className="flex items-center justify-around px-2 py-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
@@ -91,38 +109,27 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-300 min-w-[56px] ${
+                  className={`relative flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl transition-all duration-300 min-w-[60px] ${
                     isActive
                       ? "text-white"
-                      : "text-[#9ccddb]/50 hover:text-[#9ccddb]"
+                      : "text-zinc-500 hover:text-zinc-300"
                   }`}
                 >
-                  {/* Active Background */}
-                  {isActive && (
-                    <div className="absolute inset-0 bg-[#064469]/40 rounded-xl border border-white/10 shadow-lg shadow-[#064469]/20" />
-                  )}
-
                   <Icon
-                    className={`relative w-5 h-5 transition-all duration-300 ${
-                      isActive ? "scale-110" : "group-hover:scale-105"
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                      isActive ? "scale-110 stroke-[2.5px]" : "stroke-[2px]"
                     }`}
-                    strokeWidth={isActive ? 2.5 : 2}
                   />
 
-                  {/* Label */}
                   {shortName && (
-                    <span
-                      className={`relative text-[9px] font-medium transition-all duration-300 ${
-                        isActive ? "text-white" : "text-[#9ccddb]/60"
-                      }`}
-                    >
+                    <span className="text-[10px] font-semibold uppercase tracking-wider scale-90">
                       {shortName}
                     </span>
                   )}
 
-                  {/* Active Indicator */}
+                  {/* Tiny indicator bar underneath active item */}
                   {isActive && (
-                    <span className="absolute -top-1 w-6 h-0.5 bg-gradient-to-r from-[#9ccddb] to-[#5790ab] rounded-full shadow-lg shadow-[#9ccddb]/30" />
+                    <span className="absolute -bottom-1 w-4 h-[3px] bg-white rounded-full" />
                   )}
                 </Link>
               );

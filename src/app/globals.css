@@ -1,12 +1,12 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap");
 
 :root {
-  --raw-primary: #072d44;
-  --raw-secondary: #064469;
-  --raw-tertiary: #5790ab;
-  --raw-fourth: #9ccddb;
-  --raw-fifth: #d0d7e1;
+  --raw-primary: #111111; /* Deep street black */
+  --raw-secondary: #1a1a1a; /* Rich card dark gray */
+  --raw-tertiary: #f4f4f5; /* Premium off-white bone bg */
+  --raw-fourth: #e4e4e7; /* Border / accent dividing line */
+  --raw-accent: #10b981; /* Kinetic Emerald Green for cart alerts/badges */
 }
 
 @theme {
@@ -14,12 +14,13 @@
   --color-secondary: var(--raw-secondary);
   --color-tertiary: var(--raw-tertiary);
   --color-fourth: var(--raw-fourth);
-  --color-fifth: var(--raw-fifth);
-  --font-salsa: "Salsa", cursive;
+  --color-accent: var(--raw-accent);
+  --font-streethead: "Syne", sans-serif;
 }
 
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
+  background-color: var(--raw-tertiary);
 }
 
 @keyframes scroll {
@@ -38,11 +39,4 @@ html {
 
 .animate-scroll:hover {
   animation-play-state: paused;
-}
-
-/* For mobile responsiveness */
-@media (max-width: 768px) {
-  .animate-scroll {
-    animation-duration: 20s;
-  }
 }

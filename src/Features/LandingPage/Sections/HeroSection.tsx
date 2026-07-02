@@ -1,91 +1,110 @@
-import BlurCircle from "@/Components/Designs/BlurCircle";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const HeroSection = () => {
-  const sampleProducts = [
+  const trendingProducts = [
     {
       id: 1,
-      title: "Classic Trench",
+      title: "Boxy Tee",
+      tag: "BESTSELLER",
+      linkUrl: "/product/1",
       imgUrl:
-        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80",
     },
     {
       id: 2,
-      title: "Minimal Knitwear",
+      title: "Trackpants",
+      tag: "NEW DROP",
+      linkUrl: "/product/2",
       imgUrl:
-        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1551854838-212c50b4c184?w=600&auto=format&fit=crop&q=80",
     },
     {
       id: 3,
-      title: "Urban Jacket",
+      title: "Graphic Tee",
+      tag: "TRENDING",
+      linkUrl: "/product/3",
       imgUrl:
-        "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&auto=format&fit=crop&q=80",
     },
     {
-      id: 5,
-      title: "Summer Linen",
+      id: 4,
+      title: "Cargo Joggers",
+      tag: "MINC PRICE",
+      linkUrl: "/product/4",
       imgUrl:
-        "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&auto=format&fit=crop&q=80",
-    },
-    {
-      id: 6,
-      title: "Casual Denim",
-      imgUrl:
-        "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80",
     },
   ];
 
   return (
-    <section className="relative w-full  md:h-screen overflow-hidden">
-      {/* Background Visuals */}
-      <div
-        className="absolute inset-0 z-0 flex items-center justify-center"
-        aria-hidden="true"
-      >
-        <BlurCircle size={800} />
-      </div>
+    <section className="relative w-full min-h-screen bg-white text-black overflow-hidden pt-24 pb-16">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div className="w-full text-center py-10 md:py-14 flex flex-col items-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-streethead font-extrabold tracking-tight uppercase leading-none mb-4 text-primary">
+            DROP 01 || THE STREETS ARE CALLING
+          </h1>
+          <p className="text-zinc-500 text-xs md:text-sm tracking-widest uppercase font-semibold mb-6">
+            Premium Heavyweight Tees & Tailored Trackpants
+          </p>
+          <Link
+            href="/shop"
+            className="px-7 py-5 bg-primary rounded-2xl text-white text-xs font-bold tracking-widest uppercase transition-all duration-200 hover:bg-zinc-800 active:scale-95"
+          >
+            SHOP THE DROPS
+          </Link>
+        </div>
 
-      {/* Main Content Container */}
-      <div className="relative z-10 w-full h-full p-0 md:p-2">
-        <div className="w-full h-full flex flex-col gap-10  md:gap-0 md:justify-around items-center text-center bg-fifth/70 md:rounded-3xl overflow-hidden pt-20 md:pt-20">
-          {/* Top Section: Typography and CTA */}
-          <div className="flex flex-col items-center gap-6 md:gap-8 px-6">
-            <h1 className="text-2xl md:text-5xl lg:text-6xl font-salsa text-white leading-tight">
-              Where Style speaks, <br className="md:hidden" />
-              trends resonate, <br className="hidden md:block" />
-              fashion Flourishes, Comfort
-            </h1>
+        <div className="w-full flex items-center justify-between border-b border-zinc-200 pb-4 mb-6">
+          <h2 className="text-lg md:text-xl font-bold tracking-tight uppercase font-streethead">
+            TRENDING STYLES
+          </h2>
+          <Link
+            href="/shop"
+            className="text-xs font-bold underline tracking-wide text-zinc-600 hover:text-black"
+          >
+            VIEW ALL
+          </Link>
+        </div>
 
+        <div className="flex gap-4 md:gap-6 overflow-x-auto pb-12 pt-4 scrollbar-none no-scrollbar snap-x snap-mandatory lg:justify-between">
+          {trendingProducts.map((product, index) => (
             <Link
-              href="/shop"
-              className="flex items-center justify-center w-58 md:w-60 h-14 md:h-16 rounded-full bg-primary text-white text-sm md:text-base hover:bg-secondary transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-primary/30"
+              key={product.id}
+              href={product.linkUrl}
+              className={`group relative min-w-[200px] md:min-w-[270px] flex-1 h-[380px] md:h-[500px] rounded-[24px] overflow-hidden shadow-sm snap-start transition-all duration-500 hover:-translate-y-2 block border border-zinc-200/60 ${
+                index % 2 === 1 ? "md:mt-8" : ""
+              }`}
             >
-              SHOP COLLECTION
-            </Link>
-          </div>
+              <div className="absolute inset-0 w-full h-full bg-zinc-100">
+                <span className="absolute top-4 left-4 z-20 bg-black text-white text-[9px] font-bold tracking-wider px-2 py-1 uppercase rounded-sm">
+                  {product.tag}
+                </span>
 
-          {/* Bottom Section: Properly Aligned Product Slider */}
-          <div className="w-full flex gap-4 overflow-x-auto no-scrollbar px-6 pb-6  lg:justify-center">
-            {sampleProducts.map((product) => (
-              <Link
-                key={product.id}
-                href="/shop"
-                className="group min-w-[160px] sm:min-w-[190px] md:min-w-[280px] max-w-[240px] flex-1 text-white transition-all duration-300 hover:-translate-y-2 block text-left"
-              >
-                <div className=" aspect-4/7  rounded-t-4xl md:rounded-t-[100px] overflow-hidden mb-3">
-                  <Image
-                    src={product.imgUrl}
-                    alt={product.title}
-                    width={500}
-                    height={600}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                <Image
+                  src={product.imgUrl}
+                  alt={product.title}
+                  fill
+                  sizes="(max-w-768px) 50vw, 25vw"
+                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-black/10" />
+              </div>
+
+              <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2 pointer-events-none">
+                <div className="w-8 h-8 rounded-full border border-white/40 bg-white/10 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all duration-300">
+                  <ArrowUpRight className="w-4 h-4 transform group-hover:rotate-45 transition-transform" />
                 </div>
-              </Link>
-            ))}
-          </div>
+
+                <h3 className="text-lg md:text-xl font-bold tracking-tight text-white uppercase origin-left font-streethead">
+                  {product.title}
+                </h3>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
