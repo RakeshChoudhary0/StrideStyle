@@ -3,59 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import ShowProductCard from "../Components/ShowProductCard";
-
-const productsData = {
-  products: [
-    {
-      id: 1,
-      parentId: null,
-      title: "Essential Cotton Tee",
-      category: "",
-      price: "₹899",
-      discount: "20% OFF",
-      imgUrl: [
-        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=80",
-      ],
-      sizes: ["S", "M", "L", "XL"],
-    },
-    {
-      id: 4,
-      parentId: null,
-      title: "Classic Denim Jacket",
-      category: "",
-      price: "₹3,499",
-      discount: "15% OFF",
-      imgUrl: [
-        "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=600&auto=format&fit=crop&q=80",
-      ],
-      sizes: ["M", "L", "XL", "XXL"],
-    },
-    {
-      id: 7,
-      parentId: null,
-      title: "Signature Street Trackpants",
-      category: "",
-      price: "₹1,399",
-      discount: "30% OFF",
-      imgUrl: [
-        "https://images.unsplash.com/photo-1551854838-212c50b4c184?w=600&auto=format&fit=crop&q=80",
-      ],
-      sizes: ["S", "M", "L", "XL"],
-    },
-    {
-      id: 13,
-      parentId: null,
-      title: "Cargo Joggers",
-      category: "",
-      price: "₹1,799",
-      discount: "25% OFF",
-      imgUrl: [
-        "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80",
-      ],
-      sizes: ["S", "M", "L", "XL", "XXL"],
-    },
-  ],
-};
+import { Product } from "../Data/heroData";
 
 const HeroSection = () => {
   return (
@@ -91,8 +39,12 @@ const HeroSection = () => {
 
         {/* Horizontal Card Sliders Mapping Modulated Children Items */}
         <div className="flex gap-4 md:gap-6 overflow-x-auto pb-12 pt-4 scrollbar-none no-scrollbar snap-x snap-mandatory lg:justify-between">
-          {productsData.products.map((product, index) => (
-            <ShowProductCard key={product.id} product={product} index={index} />
+          {Product.slice(0, 4).map((product, index) => (
+            <ShowProductCard
+              key={product._id}
+              product={product}
+              index={index}
+            />
           ))}
         </div>
       </div>

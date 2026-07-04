@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ShowProductCard from "../Components/ShowProductCard";
+import { Product } from "../Data/heroData";
 
 // Using your exact production schema payload structure
 const productsData = {
@@ -129,8 +130,12 @@ const DealsSection = () => {
 
         {/* Clean, Reusable Product Horizontal Slider Container */}
         <div className="w-full flex gap-4 md:gap-6 overflow-x-auto md:p-6 scrollbar-none no-scrollbar snap-x snap-mandatory">
-          {productsData.products.map((product, index) => (
-            <ShowProductCard key={product.id} product={product} index={index} />
+          {Product.slice(0, 4).map((product, index) => (
+            <ShowProductCard
+              key={product._id}
+              product={product}
+              index={index}
+            />
           ))}
         </div>
       </div>

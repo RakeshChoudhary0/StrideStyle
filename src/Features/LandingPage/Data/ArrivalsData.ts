@@ -36,7 +36,7 @@ export const Product = [
     name: "Heavyweight Oversized Hoodie - Pitch Black",
     slug: "heavyweight-oversized-hoodie-pitch-black",
     color: "#000000",
-    price: "2999",
+    price: "2,999",
     discount: "10",
     images: [
       "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&auto=format&fit=crop&q=80",
@@ -56,7 +56,7 @@ export const Product = [
     name: "Heavyweight Oversized Hoodie - Off-White",
     slug: "heavyweight-oversized-hoodie-off-white",
     color: "#F7F5F0",
-    price: "2999",
+    price: "2,999",
     discount: "15",
     images: [
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80",
@@ -69,14 +69,32 @@ export const Product = [
       { size: "XL", stock: 0 },
     ],
   },
-
+  {
+    _id: "6686c1a2c12a3d4e5f6a0013",
+    parent: "6686bfb1c12a3d4e5f6a0001",
+    name: "Heavyweight Oversized Hoodie - Sage Green",
+    slug: "heavyweight-oversized-hoodie-sage-green",
+    color: "#708238",
+    price: "2,999",
+    discount: "20",
+    images: [
+      "https://images.unsplash.com/photo-1621951253016-7493b12d649f?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1519983893884-23d37df90124?w=600&auto=format&fit=crop&q=80",
+    ],
+    sizes: ["S", "M", "L"],
+    stock: [
+      { size: "S", stock: 8 },
+      { size: "M", stock: 30 },
+      { size: "L", stock: 12 },
+    ],
+  },
   {
     _id: "6686c1a2c12a3d4e5f6a0014",
     parent: "6686bfb1c12a3d4e5f6a0001",
     name: "Heavyweight Oversized Hoodie - Chocolate Brown",
     slug: "heavyweight-oversized-hoodie-chocolate-brown",
     color: "#3E2723",
-    price: "2999",
+    price: "2,999",
     discount: "0",
     images: [
       "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=600&auto=format&fit=crop&q=80",
@@ -90,14 +108,51 @@ export const Product = [
       { size: "XL", stock: 4 },
     ],
   },
-
+  {
+    _id: "6686c1a2c12a3d4e5f6a0021",
+    parent: "6686bfb1c12a3d4e5f6a0002",
+    name: "Classic Drop-Tail Tee - Vintage Grey",
+    slug: "classic-drop-tail-tee-vintage-grey",
+    color: "#8E8E93",
+    price: "1,499",
+    discount: "5",
+    images: [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&auto=format&fit=crop&q=80",
+    ],
+    sizes: ["S", "M", "L"],
+    stock: [
+      { size: "S", stock: 40 },
+      { size: "M", stock: 55 },
+      { size: "L", stock: 35 },
+    ],
+  },
+  {
+    _id: "6686c1a2c12a3d4e5f6a0022",
+    parent: "6686bfb1c12a3d4e5f6a0002",
+    name: "Classic Drop-Tail Tee - Navy Blue",
+    slug: "classic-drop-tail-tee-navy-blue",
+    color: "#0A192F",
+    price: "1,499",
+    discount: "10",
+    images: [
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&auto=format&fit=crop&q=80",
+    ],
+    sizes: ["M", "L", "XL"],
+    stock: [
+      { size: "M", stock: 28 },
+      { size: "L", stock: 42 },
+      { size: "XL", stock: 19 },
+    ],
+  },
   {
     _id: "6686c1a2c12a3d4e5f6a0023",
     parent: "6686bfb1c12a3d4e5f6a0002",
     name: "Classic Drop-Tail Tee - Burgundy",
     slug: "classic-drop-tail-tee-burgundy",
     color: "#800020",
-    price: "1199",
+    price: "1,499",
     discount: "25",
     images: [
       "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600&auto=format&fit=crop&q=80",
@@ -111,15 +166,14 @@ export const Product = [
       { size: "XL", stock: 22 },
     ],
   },
-
   {
     _id: "6686c1a2c12a3d4e5f6a0024",
     parent: "6686bfb1c12a3d4e5f6a0002",
-    name: "Classic Drop-Tail Tee - Sand Beige",
+    name: "Tee - Sand Beige",
     slug: "classic-drop-tail-tee-sand-beige",
     color: "#E1C699",
-    price: "1099",
-    discount: "5",
+    price: "1,499",
+    discount: "0",
     images: [
       "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1571945153237-4929e1ba346c?w=600&auto=format&fit=crop&q=80",
