@@ -90,13 +90,13 @@ const MainProductCard: React.FC<ProductCardProps> = ({
             <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 z-30 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
               <button
                 onClick={handlePrevImage}
-                className="w-7 h-7 rounded-full bg-white shadow-xs flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white shadow-xs flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2]" />
               </button>
               <button
                 onClick={handleNextImage}
-                className="w-7 h-7 rounded-full bg-white shadow-xs flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white shadow-xs flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4 stroke-[2]" />
               </button>

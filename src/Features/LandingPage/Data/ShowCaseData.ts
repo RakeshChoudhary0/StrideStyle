@@ -29,12 +29,13 @@ export const Product = [
       "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1511105612320-2e62a04dd044?w=600&auto=format&fit=crop&q=80",
     ],
-    sizes: ["S", "M", "L", "XL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
     stock: [
       { size: "S", stock: 12 },
-      { size: "M", stock: 25 },
-      { size: "L", stock: 18 },
-      { size: "XL", stock: 5 },
+      { size: "M", stock: 1 },
+      { size: "L", stock: 1 },
+      { size: "XL", stock: 1 },
+      { size: "XXL", stock: 1 },
     ],
   },
 ];

@@ -7,45 +7,50 @@ import { Product } from "../Data/heroData";
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full min-h-screen  bg-white  text-black overflow-hidden pt-10 md:pt-24 pb-16 select-none">
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-6">
-        <div className="w-full text-center py-10 md:py-14 flex flex-col items-center">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-streethead font-extrabold tracking-tight uppercase leading-none mb-4 text-primary">
-            DROP 01 || THE STREETS ARE CALLING
+    <section className="w-full h-screen bg-white text-zinc-950 select-none pt-12 md:pt-24 overflow-hidden">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
+        <div className="w-full text-center py-14 flex flex-col items-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-[-0.02em] leading-[0.95] mb-4 font-streethead max-w-3xl text-zinc-900">
+            DESIGNED TO LIVE IN.
           </h1>
-          <p className="text-zinc-500 text-xs md:text-sm tracking-widest uppercase font-semibold mb-6">
-            Premium Heavyweight Tees &amp; Tailored Trackpants
+
+          <p className="text-zinc-400 text-xs md:text-sm tracking-widest uppercase font-medium md:mb-8 mb-5 max-w-md">
+            Premium heavyweight silhouettes crafted for everyday comfort.
           </p>
+
           <Link
             href="/shop"
-            className="px-7 py-5 bg-primary  text-white text-xs font-bold  tracking-widest uppercase transition-all duration-300 hover:text-black hover:border hover:bg-zinc-100 active:scale-95 "
+            className="px-10 py-4 bg-zinc-950 text-white text-xs font-bold tracking-[0.25em] uppercase transition-all duration-200 border border-zinc-950 hover:bg-white hover:text-zinc-950 rounded-none active:scale-98"
           >
-            SHOP THE DROPS
+            EXPLORE THE COMFORT
           </Link>
         </div>
 
-        {/* Interactive Secondary Navigation Element Node */}
-        <div className="w-full flex items-center justify-between border-b border-zinc-200 pb-4 mb-6">
-          <h2 className="text-lg md:text-xl font-bold tracking-tight uppercase font-streethead">
-            NEW PRODUCTS
+        {/* Premium Clean Collection Header Line */}
+        <div className="w-full flex items-end justify-between border-b border-zinc-100 pb-3 mb-6">
+          <h2 className="text-xs md:text-sm font-bold tracking-[0.15em] uppercase text-zinc-900 font-streethead">
+            NEW ARRIVALS
           </h2>
           <Link
             href="/shop"
-            className="text-xs font-bold underline tracking-wide text-zinc-600 hover:text-black"
+            className="text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase text-zinc-400 hover:text-zinc-950 transition-colors duration-200"
           >
             VIEW ALL
           </Link>
         </div>
 
-        {/* Horizontal Card Sliders Mapping Modulated Children Items */}
-        <div className="flex gap-4 md:gap-6 overflow-x-auto pb-12 pt-4 scrollbar-none no-scrollbar snap-x snap-mandatory lg:justify-between">
-          {Product.slice(0, 4).map((product, index) => (
-            <ShowProductCard
-              key={product._id}
-              product={product}
-              index={index}
-            />
-          ))}
+        {/* Balanced Structural Layout: Free Swipe Carousel on Mobile -> Perfect 4-Column Grid Grid on Laptop */}
+        <div className="w-full relative">
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-none no-scrollbar snap-x snap-mandatory lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-x-visible lg:pb-0">
+            {Product.slice(0, 4).map((product, index) => (
+              <div
+                key={product._id}
+                className="min-w-[75vw] sm:min-w-[45vw] lg:min-w-0 snap-center"
+              >
+                <ShowProductCard product={product} index={index} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

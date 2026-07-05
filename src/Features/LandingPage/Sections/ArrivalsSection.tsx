@@ -7,7 +7,7 @@ const ArrivalsSection = () => {
       <div className="w-full flex flex-col items-center">
         <div className="text-center mb-15">
           <h2 className="text-3xl md:text-5xl font-streethead font-extrabold uppercase tracking-tight text-primary">
-            ARRIVALS
+            NEW ARRIVALS
           </h2>
           <p className="text-zinc-400 text-xs tracking-widest uppercase font-semibold mt-2">
             Fresh Seasonal Drop / Premium Heavyweight Silhouettes
@@ -15,7 +15,7 @@ const ArrivalsSection = () => {
         </div>
 
         {/* Full-width Responsive Grid */}
-        <div className="w-full grid grid-cols-2 gap-x-1 md:gap-y-10 gap-y-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 md:gap-x-2">
+        <div className="w-full grid grid-cols-2 gap-x-1 md:gap-y-10 gap-y-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 md:gap-x-2">
           {Product.map((prod) => {
             // Find parent information to pass down available option colors
             const parentData = Parent.find((p) => p._id === prod.parent);

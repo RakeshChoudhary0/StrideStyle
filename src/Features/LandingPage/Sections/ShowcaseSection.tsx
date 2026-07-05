@@ -7,6 +7,8 @@ import { Parent, Product } from "../Data/ShowCaseData";
 import calculateDiscount from "@/Extras/Utils/DiscountCalculator";
 
 const ShowcaseSection = () => {
+
+  
   const featuredProduct = Product[0];
   const parentData = Parent.find((p) => p._id === featuredProduct.parent);
 

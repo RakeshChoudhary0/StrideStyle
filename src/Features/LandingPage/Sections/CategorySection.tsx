@@ -67,7 +67,7 @@ const CategorySection = () => {
           ))}
         </div>
 
-        <div className="mt-8 md:mt-16 text-center">
+        <div className="mt-8 md:mt-16 md:mb-0 mb-7 text-center">
           <Link
             href="/shop"
             className="group inline-flex items-center justify-center border border-zinc-950 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-[0.15em] text-zinc-950 transition-all duration-300 hover:bg-zinc-950 hover:text-white sm:text-sm"

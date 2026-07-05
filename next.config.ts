@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     browserToTerminal: false,
   },
 
-  allowedDevOrigins: ["10.181.82.149", "10.193.166.149"],
+  allowedDevOrigins: ["10.89.140.149"],
   images: {
     remotePatterns: [
       {

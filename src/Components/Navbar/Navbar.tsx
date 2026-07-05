@@ -97,8 +97,8 @@ const Navbar = () => {
       </header>
 
       {/* Mobile Bottom Float-Navigation (Snitch Style App-feel) */}
-      <nav className="fixed bottom-6 left-6 right-6 z-50 md:hidden">
-        <div className="relative bg-primary/95 rounded-2xl backdrop-blur-lg border border-white/5 shadow-xl">
+      <nav className="fixed bottom-4 left-4  right-4 z-50 md:hidden">
+        <div className="relative bg-primary/95 rounded-2xl bg-black/60 backdrop-blur-lg border py-1 border-white/5 shadow-xl">
           <div className="flex items-center justify-around px-2 py-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -111,8 +111,8 @@ const Navbar = () => {
                   href={link.href}
                   className={`relative flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl transition-all duration-300 min-w-[60px] ${
                     isActive
-                      ? "text-white"
-                      : "text-zinc-500 hover:text-zinc-300"
+                      ? "text-white border-t-2 border-l-2 border-r-2 border-white/50 "
+                      : "text-zinc-200"
                   }`}
                 >
                   <Icon
@@ -122,7 +122,7 @@ const Navbar = () => {
                   />
 
                   {shortName && (
-                    <span className="text-[10px] font-semibold uppercase tracking-wider scale-90">
+                    <span className="text-[10px]  font-semibold uppercase tracking-wider scale-90">
                       {shortName}
                     </span>
                   )}
