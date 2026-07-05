@@ -66,7 +66,7 @@ const MainProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="w-full group">
       <Link href={`/product/${product.slug}`} className="block w-full">
-        <div className="relative w-full aspect-3/4 bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
+        <div className="relative w-full aspect-3/4  bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
           <button
             onClick={handleLikeToggle}
             className="absolute top-2.5 right-2.5 z-20 w-8 h-8 hidden sm:flex items-center justify-center bg-white/90 backdrop-blur-xs rounded-full border border-zinc-200/60 text-zinc-900 shadow-xs cursor-pointer"
@@ -120,7 +120,7 @@ const MainProductCard: React.FC<ProductCardProps> = ({
 
           {/* Price Layout Node */}
           <div className="flex items-baseline gap-1.5 font-mono text-[13px]">
-            <span className="font-bold text-zinc-900 text-[16px] ">
+            <span className="font-bold text-zinc-900 text-[12p] md:text-[16px] ">
               ₹
               {Number(
                 calculateDiscount(product.price, product.discount),

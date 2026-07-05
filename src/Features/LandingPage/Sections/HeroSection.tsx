@@ -7,7 +7,7 @@ import { Product } from "../Data/heroData";
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full min-h-screen bg-white text-black overflow-hidden pt-10 md:pt-24 pb-16 select-none">
+    <section className="relative w-full min-h-screen  bg-white  text-black overflow-hidden pt-10 md:pt-24 pb-16 select-none">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-6">
         <div className="w-full text-center py-10 md:py-14 flex flex-col items-center">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-streethead font-extrabold tracking-tight uppercase leading-none mb-4 text-primary">
@@ -18,7 +18,7 @@ const HeroSection = () => {
           </p>
           <Link
             href="/shop"
-            className="px-7 py-5 bg-primary rounded-2xl text-white text-xs font-bold tracking-widest uppercase transition-all duration-200 hover:bg-zinc-800 active:scale-95"
+            className="px-7 py-5 bg-primary  text-white text-xs font-bold  tracking-widest uppercase transition-all duration-300 hover:text-black hover:border hover:bg-zinc-100 active:scale-95 "
           >
             SHOP THE DROPS
           </Link>

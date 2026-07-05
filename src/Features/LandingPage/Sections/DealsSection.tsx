@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ShowProductCard from "../Components/ShowProductCard";
-import { Product } from "../Data/heroData";
+import { Product } from "../Data/DealsData";
 
 // Using your exact production schema payload structure
 const productsData = {

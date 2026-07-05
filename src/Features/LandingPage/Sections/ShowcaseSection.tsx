@@ -3,76 +3,178 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Parent, Product } from "../Data/ShowCaseData";
+import calculateDiscount from "@/Extras/Utils/DiscountCalculator";
 
 const ShowcaseSection = () => {
-  const [selectedSize, setSelectedSize] = useState("L");
+  const featuredProduct = Product[0];
+  const parentData = Parent.find((p) => p._id === featuredProduct.parent);
+
+  const availableColors = parentData ? parentData.totalColors : [];
+  const description = parentData ? parentData.description : "";
+  const subcategoryText = `${featuredProduct.for} // ${parentData?.style || "Premium"} ${parentData?.type || "Drop"}`;
+
+  const [selectedSize, setSelectedSize] = useState(
+    featuredProduct.sizes[1] || "M",
+  );
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
+
+  const finalPrice = calculateDiscount(
+    featuredProduct.price,
+    featuredProduct.discount,
+  );
 
   return (
-    <section className="w-full h-auto md:h-[50vh] min-h-[400px] bg-[#181a1f] text-white flex flex-col md:flex-row select-none">
-      <div className="w-full md:w-1/2 h-[340px] md:h-full relative flex items-center justify-center p-4">
-        <div className="relative w-full h-full  md:max-w-[360px] max-w-[300px] transition-transform duration-300 hover:-translate-y-1">
-          <Image
-            src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80"
-            alt="Men's Heavyweight Tee"
-            fill
-            priority
-            className="object-cover rounded-[24px] object-bottom"
-          />
-        </div>
-      </div>
+    <section className="w-full min-h-[500px] md:h-[75vh] bg-white text-zinc-950 flex flex-col md:flex-row select-none border-t border-b border-zinc-100">
+      <div className="w-full md:w-1/2 h-[480px] md:h-full relative bg-zinc-50 overflow-hidden border-b md:border-b-0 md:border-r border-zinc-100 group">
+        <Image
+          src={
+            featuredProduct.images[activeImageIdx] || featuredProduct.images[0]
+          }
+          alt={featuredProduct.name}
+          fill
+          priority
+          className="object-cover object-center transform scale-100 transition-transform duration-1200 ease-out group-hover:scale-103"
+        />
 
-      <div className="w-full md:w-1/2 flex flex-col justify-center px-6 pb-12 md:py-0 md:px-16 lg:px-24">
-        <span className="text-zinc-400 text-[10px] md:text-xs font-semibold tracking-widest uppercase mb-1 block">
-          Men&apos;s Streetwear Drop // 01
-        </span>
+        {/* Top Premium Badge */}
+        {featuredProduct.discount && (
+          <div className="absolute top-6 left-6 z-10 bg-zinc-950 px-2.5 py-1">
+            <span className="text-[9px] text-white font-bold tracking-[0.2em] uppercase">
+              {featuredProduct.discount}% OFF DROP
+            </span>
+          </div>
+        )}
 
-        <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3">
-          BOX-FIT HEAVYWEIGHT TEE
-        </h2>
-
-        <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-6 max-w-md">
-          Engineered from 320GSM ultra-dense organic cotton loopback. Features
-          signature dropped shoulders and an authentic boxy structural cut
-          designed specifically for a premium men&apos;s silhouette.
-        </p>
-
-        {/* Size Selection */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-[11px] font-bold uppercase text-zinc-400">
-            Size:
-          </span>
-          <div className="flex gap-2">
-            {["S", "M", "L", "XL", "XXL"].map((size) => (
+        {/* Thumbnail Carousel Toggles (Hover over or click to view alternative angles) */}
+        {featuredProduct.images.length > 1 && (
+          <div className="absolute bottom-6 left-6 z-10 flex gap-2">
+            {featuredProduct.images.map((img, index) => (
               <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`w-8 h-8 text-[11px] font-bold rounded transition-all ${
-                  selectedSize === size
-                    ? "bg-white text-black"
-                    : "bg-white/5 text-zinc-300 hover:bg-white/10"
+                key={index}
+                onClick={() => setActiveImageIdx(index)}
+                onMouseEnter={() => setActiveImageIdx(index)}
+                className={`w-20 h-20 relative overflow-hidden rounded-none border transition-all ${
+                  activeImageIdx === index
+                    ? "border-zinc-950 opacity-100 scale-105"
+                    : "border-transparent opacity-100"
                 }`}
               >
-                {size}
+                <Image
+                  src={img}
+                  alt="thumbnail"
+                  fill
+                  className="object-cover"
+                />
               </button>
             ))}
           </div>
+        )}
+      </div>
+
+      <div className="w-full md:w-1/2 flex flex-col justify-center px-6 py-12 md:py-0 md:px-16 lg:px-24 bg-white">
+        <span className="text-[10px] font-bold tracking-[0.25em] text-zinc-400 uppercase mb-2 block">
+          {subcategoryText}
+        </span>
+
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-streethead font-black uppercase tracking-tight text-zinc-900 mb-4 leading-none">
+          {parentData?.name || featuredProduct.name.split(" - ")[0]}
+        </h2>
+
+        <p className="text-zinc-500 text-xs md:text-sm leading-relaxed mb-8 max-w-md font-medium">
+          {description}
+        </p>
+
+        {availableColors.length > 0 && (
+          <div className="space-y-2.5 mb-6">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
+              Available Tones:
+            </span>
+            <div className="flex gap-2.5 items-center">
+              {availableColors.map((color) => {
+                const isCurrentActiveColor =
+                  color.hex.toLowerCase() ===
+                  featuredProduct.color.toLowerCase();
+                return (
+                  <div
+                    key={color.colorName}
+                    title={color.colorName}
+                    className={`w-6 h-6  flex items-center justify-center border transition-all ${
+                      isCurrentActiveColor
+                        ? "border-zinc-950 scale-110 p-0.5"
+                        : "border-zinc-200 hover:border-zinc-400"
+                    }`}
+                  >
+                    <div
+                      className="w-full h-full  border border-black/10"
+                      style={{ backgroundColor: color.hex }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div className="space-y-3 mb-8">
+          <div className="flex justify-between items-center max-w-xs">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+              Select Size:
+            </span>
+          </div>
+          <div className="flex gap-2">
+            {featuredProduct.sizes.map((size) => {
+              const sizeStockItem = featuredProduct.stock?.find(
+                (s) => s.size === size,
+              );
+              const isOutOfStock = sizeStockItem
+                ? sizeStockItem.stock === 0
+                : false;
+
+              return (
+                <button
+                  key={size}
+                  disabled={isOutOfStock}
+                  onClick={() => setSelectedSize(size)}
+                  className={`w-10 h-10 text-xs font-bold rounded-none transition-all duration-200 border uppercase relative ${
+                    isOutOfStock
+                      ? "bg-zinc-50 text-zinc-300 border-zinc-100 cursor-not-allowed line-through"
+                      : selectedSize === size
+                        ? "bg-zinc-950 text-white border-zinc-950"
+                        : "bg-white text-zinc-800 border-zinc-200 hover:border-zinc-950"
+                  }`}
+                >
+                  {size}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Pricing & CTA */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-xl md:text-2xl font-black">₹1,299</span>
-          <span className="text-xs line-through text-zinc-500">₹1,999</span>
-          <span className="text-[10px] bg-white text-black font-black px-1.5 py-0.5 rounded uppercase">
-            35% OFF
+        <div className="flex items-baseline gap-3 mb-8">
+          <span className="text-2xl md:text-3xl font-black text-zinc-950 tracking-tight">
+            ₹{finalPrice.toLocaleString("en-IN")}
           </span>
+          {parseFloat(featuredProduct.discount) > 0 && (
+            <>
+              <span className="text-xs md:text-sm line-through text-zinc-400 font-medium">
+                ₹{parseFloat(featuredProduct.price).toLocaleString("en-IN")}
+              </span>
+              <span className="text-[10px] text-red-600 font-bold tracking-widest uppercase">
+                ({featuredProduct.discount}% OFF)
+              </span>
+            </>
+          )}
         </div>
 
-        <Link
-          href="/checkout"
-          className="inline-block w-full sm:w-48 py-3.5 bg-white text-black text-xs font-bold tracking-widest uppercase text-center rounded transition-all hover:bg-zinc-200 active:scale-95"
-        >
-          BUY NOW
-        </Link>
+        <div className="w-full max-w-md">
+          <Link
+            href={`/checkout?id=${featuredProduct._id}&size=${selectedSize}`}
+            className="group inline-flex w-full items-center justify-center bg-zinc-950 text-white text-xs font-bold tracking-[0.2em] uppercase py-4 transition-all duration-300 hover:bg-zinc-900 rounded-none"
+          >
+            BUY NOW
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -37,6 +37,7 @@ export const Product = [
     slug: "heavyweight-oversized-hoodie-pitch-black",
     color: "#000000",
     price: "2999",
+    for: "Mens Wear",
     discount: "10",
     images: [
       "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&auto=format&fit=crop&q=80",
@@ -57,6 +58,7 @@ export const Product = [
     slug: "heavyweight-oversized-hoodie-off-white",
     color: "#F7F5F0",
     price: "2999",
+    for: "Mens Wear",
     discount: "15",
     images: [
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80",
@@ -77,6 +79,7 @@ export const Product = [
     slug: "heavyweight-oversized-hoodie-chocolate-brown",
     color: "#3E2723",
     price: "2999",
+    for: "Mens Wear",
     discount: "0",
     images: [
       "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=600&auto=format&fit=crop&q=80",
@@ -98,6 +101,7 @@ export const Product = [
     slug: "classic-drop-tail-tee-burgundy",
     color: "#800020",
     price: "1199",
+    for: "Mens Wear",
     discount: "25",
     images: [
       "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600&auto=format&fit=crop&q=80",
@@ -119,6 +123,7 @@ export const Product = [
     slug: "classic-drop-tail-tee-sand-beige",
     color: "#E1C699",
     price: "1099",
+    for: "Mens Wear",
     discount: "5",
     images: [
       "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&auto=format&fit=crop&q=80",
