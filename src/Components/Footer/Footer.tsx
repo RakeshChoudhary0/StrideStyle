@@ -7,11 +7,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#fbf9f6] text-zinc-900 pt-16 pb-8 border-t border-zinc-200/60 select-none font-sans">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-12">
-        {/* SECTION 1: Snitch-Style Semantic Keyword Copy Matrices */}
+    <footer className="w-full bg-[#fbf9f6]  text-zinc-900 pt-16 pb-22 md:pb-8 border-t border-zinc-200/60 select-none font-sans">
+      <div className="max-w-7xl mx-auto px-4  md:px-8 space-y-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 border-b border-zinc-200/60 pb-12 text-xs md:text-[13px] text-zinc-600 leading-relaxed tracking-wide">
-          {/* Left Block: Brand Positioning & Comfort Fabric Narrative */}
           <div className="space-y-4">
             <h3 className="text-sm font-bold tracking-widest text-zinc-900 uppercase font-streethead">
               The Luxury Comfort Standard — Redefining Daily Wear
@@ -33,7 +31,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Right Block: Fit Engineering & Multi-Generational Apparel */}
           <div className="space-y-4">
             <h3 className="text-sm font-bold tracking-widest text-zinc-900 uppercase font-streethead">
               Premium Loungewear Built For Everyone

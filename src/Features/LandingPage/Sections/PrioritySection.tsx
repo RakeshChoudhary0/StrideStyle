@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Truck, Gem, RefreshCw } from "lucide-react";
+import { ShieldCheck, Truck, Gem, RefreshCw, Hourglass } from "lucide-react";
 
 const PrioritySection = () => {
   // Ultra-clean streetwear feature matrix
@@ -25,6 +25,11 @@ const PrioritySection = () => {
       icon: <RefreshCw className="w-5 h-5 stroke-[1.25]" />,
       title: "EASY EXCHANGES",
       desc: "Hassle-free 7-day pickup window",
+    },
+    {
+      icon: <Hourglass className="w-5 h-5 stroke-[1.25]" />,
+      title: "24x7 Support",
+      desc: "rakeshchoudhary1154@gmail.com",
     },
   ];
 

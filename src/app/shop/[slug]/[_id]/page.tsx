@@ -1,4 +1,7 @@
 import React from "react";
+import { notFound } from "next/navigation";
+import { Product, Parent } from "@/Features/Shop/Data/ProductData";
+import ProductView from "@/Features/Shop/SectionsProduct/ProductView";
 
 interface ProductPageProp {
   params: Promise<{
@@ -11,19 +14,26 @@ interface ProductPageProp {
   }>;
 }
 
-const page = async ({ params, searchParams }: ProductPageProp) => {
-  console.log(params);
-  console.log(searchParams);
-  const { slug, _id } = await params;
-  const { c: color } = await searchParams;
+const Page = async ({ params, searchParams }: ProductPageProp) => {
+  const { slug } = await params;
+
+  // 1. Resolve exact product payload matching route slug
+  const targetProduct = Product.find((p) => p.slug === slug);
+  if (!targetProduct) return notFound();
+
+  const parentData = Parent.find((p) => p._id === targetProduct.parent);
+
+  const relatedVariants = Product.filter(
+    (p) => p.parent === targetProduct.parent,
+  );
+
   return (
-    <div className="pt-20">
-      <h1>{slug}</h1>
-      <p>{_id}</p>
-      <p>{color}</p>
-      <h1>page</h1>
-    </div>
+    <ProductView
+      currentProduct={targetProduct}
+      parentData={parentData}
+      variants={relatedVariants}
+    />
   );
 };
 
-export default page;
+export default Page;
