@@ -28,7 +28,7 @@ const ShowProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
 
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={`/shop/${product.slug}/${product._id}?c=${product.color}`}
       className={`group relative min-w-[210px] md:min-w-[270px] flex-1 h-[380px] md:h-[500px] rounded-[24px] overflow-hidden shadow-sm snap-start transition-all duration-500 hover:-translate-y-2 block border border-zinc-200/60 ${
         index % 2 === 1 ? "md:mt-8" : ""
       }`}

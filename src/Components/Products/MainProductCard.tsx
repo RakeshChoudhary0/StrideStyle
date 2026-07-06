@@ -65,7 +65,10 @@ const MainProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className="w-full group">
-      <Link href={`/product/${product.slug}`} className="block w-full">
+      <Link
+        href={`/shop/${product.slug}/${product._id}?c=${product.color}`}
+        className="block w-full"
+      >
         <div className="relative w-full aspect-3/4  bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
           <button
             onClick={handleLikeToggle}
