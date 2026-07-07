@@ -6,7 +6,7 @@ export interface CategoryCardType {
   type: "Topwear" | "Bottomwear" | "Footwear" | "Accessories";
   style: string;
   count: string;
-  linkUrl: string; // Clean SEO routing path
+  linkUrl: string;
   imgUrl: string;
 }
 

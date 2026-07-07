@@ -32,6 +32,7 @@ export interface ProductType {
     size: string;
     stock: number;
   }[];
+  isFreeDelivery: boolean;
 }
 
 export const Parent: ParentType[] = [
@@ -98,9 +99,6 @@ export const Parent: ParentType[] = [
 ];
 
 export const Product: ProductType[] = [
-  /* ==========================================================================
-     PARENT 1: Heavyweight Oversized Hoodie Variants
-     ========================================================================== */
   {
     _id: "6686c1a2c12a3d4e5f6a0011",
     parent: "6686bfb1c12a3d4e5f6a0001",
@@ -109,7 +107,7 @@ export const Product: ProductType[] = [
     color: "#000000",
     colorName: "Pitch Black",
     basePrice: 2999,
-    salePrice: 2699, // 10% off applied
+    salePrice: 2699,
     discount: 10,
     images: [
       "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&auto=format&fit=crop&q=80",
@@ -122,6 +120,7 @@ export const Product: ProductType[] = [
       { size: "L", stock: 18 },
       { size: "XL", stock: 5 },
     ],
+    isFreeDelivery: true,
   },
   {
     _id: "6686c1a2c12a3d4e5f6a0012",
@@ -131,7 +130,7 @@ export const Product: ProductType[] = [
     color: "#F7F5F0",
     colorName: "Off-White",
     basePrice: 2999,
-    salePrice: 2549, // 15% off applied
+    salePrice: 2549,
     discount: 15,
     images: [
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80",
@@ -142,6 +141,7 @@ export const Product: ProductType[] = [
       { size: "M", stock: 14 },
       { size: "L", stock: 22 },
     ],
+    isFreeDelivery: false,
   },
   {
     _id: "6686c1a2c12a3d4e5f6a0014",
@@ -151,7 +151,7 @@ export const Product: ProductType[] = [
     color: "#3E2723",
     colorName: "Chocolate Brown",
     basePrice: 2999,
-    salePrice: 2999, // No discount
+    salePrice: 2999,
     discount: 0,
     images: [
       "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=600&auto=format&fit=crop&q=80",
@@ -163,11 +163,9 @@ export const Product: ProductType[] = [
       { size: "L", stock: 9 },
       { size: "XL", stock: 4 },
     ],
+    isFreeDelivery: true,
   },
 
-  /* ==========================================================================
-     PARENT 2: Classic Drop-Tail Tee Variants
-     ========================================================================== */
   {
     _id: "6686c1a2c12a3d4e5f6a0021",
     parent: "6686bfb1c12a3d4e5f6a0002",
@@ -188,6 +186,7 @@ export const Product: ProductType[] = [
       { size: "L", stock: 35 },
       { size: "XL", stock: 12 },
     ],
+    isFreeDelivery: false,
   },
   {
     _id: "6686c1a2c12a3d4e5f6a0022",
@@ -208,6 +207,7 @@ export const Product: ProductType[] = [
       { size: "L", stock: 3 },
       { size: "XL", stock: 8 },
     ],
+    isFreeDelivery: true,
   },
   {
     _id: "6686c1a2c12a3d4e5f6a0023",
@@ -228,5 +228,6 @@ export const Product: ProductType[] = [
       { size: "L", stock: 15 },
       { size: "XL", stock: 22 },
     ],
+    isFreeDelivery: true,
   },
 ];

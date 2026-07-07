@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ProductType, ParentType } from "../Data/ProductData";
+import { ProductType, ParentType } from "../../Shop/Data/ProductData";
 import {
   ChevronLeft,
   ShoppingBag,
@@ -12,8 +12,8 @@ import {
   RefreshCw,
   Heart,
   Share2,
-  Star,
   ChevronDown,
+  DollarSign,
 } from "lucide-react";
 
 interface ProductViewType {
@@ -33,7 +33,7 @@ export default function ProductView({
   const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
-  const [copied, setCopied] = useState<boolean>(false);
+  const [, setCopied] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string | null>("details");
 
   // Modern, clean handling of explicit number data types
@@ -127,7 +127,7 @@ export default function ProductView({
                 <button
                   key={idx}
                   onClick={() => setActiveImage(img)}
-                  className={`aspect-[4/5] relative rounded-lg overflow-hidden bg-zinc-100 border transition-all duration-200 ${
+                  className={`aspect-4/5 relative rounded-lg overflow-hidden bg-zinc-100 border transition-all duration-200 ${
                     activeImage === img
                       ? "border-zinc-900 ring-1 ring-zinc-900"
                       : "border-zinc-200/80 hover:border-zinc-400"
@@ -146,7 +146,7 @@ export default function ProductView({
             </div>
 
             {/* Main Interactive Media Wrapper */}
-            <div className="col-span-12 sm:col-span-10 aspect-[1/1] sm:rounded-2xl overflow-hidden bg-zinc-100 sm:border border-zinc-200/60 sm:shadow-sm relative group">
+            <div className="col-span-12 sm:col-span-10 aspect-square sm:rounded-2xl overflow-hidden bg-zinc-100 sm:border border-zinc-200/60 sm:shadow-sm relative group">
               {/* Desktop View Viewport */}
               <div className="hidden sm:block w-full h-full relative">
                 <Image
@@ -231,16 +231,6 @@ export default function ProductView({
               <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 leading-tight">
                 {parentData?.name}
               </h1>
-
-              <div className="flex items-center gap-2 pt-1">
-                <div className="flex items-center gap-1 bg-zinc-900 text-white text-xs font-bold px-2 py-0.5 rounded">
-                  <span>4.4</span>
-                  <Star className="w-3 h-3 fill-white text-white" />
-                </div>
-                <span className="text-xs font-semibold text-zinc-500">
-                  124 Ratings and 48 Reviews
-                </span>
-              </div>
             </div>
 
             {/* Pricing Section */}
@@ -280,7 +270,7 @@ export default function ProductView({
                       className="group flex flex-col items-center focus:outline-none"
                     >
                       <div
-                        className={`w-full aspect-[3/4] relative rounded-xl overflow-hidden bg-zinc-100 border transition-all duration-300 ${
+                        className={`w-full aspect-3/4 relative rounded-xl overflow-hidden bg-zinc-100 border transition-all duration-300 ${
                           isCurrentVariant
                             ? "border-zinc-900 ring-2 ring-zinc-900 ring-offset-2 scale-[0.98]"
                             : "border-zinc-200/80 group-hover:border-zinc-400 group-hover:scale-[1.02]"
@@ -402,8 +392,17 @@ export default function ProductView({
             {/* Trust Badging Segments */}
             <div className="grid grid-cols-3 gap-2 pt-2 text-[10px] uppercase font-bold tracking-wider text-zinc-400">
               <div className="flex flex-col items-center gap-1.5 text-center p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/40">
-                <Truck className="w-4 h-4 text-zinc-600" />
-                <span>Free Shipping</span>
+                {currentProduct.isFreeDelivery ? (
+                  <>
+                    <Truck className="w-4 h-4 text-zinc-600" />
+                    <span>Free Shipping</span>
+                  </>
+                ) : (
+                  <>
+                    <DollarSign className="w-4 h-4 text-zinc-600" />
+                    <span>Shipping Charges</span>
+                  </>
+                )}
               </div>
               <div className="flex flex-col items-center gap-1.5 text-center p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/40">
                 <RefreshCw className="w-4 h-4 text-zinc-600" />

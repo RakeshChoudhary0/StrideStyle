@@ -67,7 +67,7 @@ const FollowOnInstagramSection = () => {
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-zinc-900">
             WEAR THE LOOK
           </h2>
-          <div className="h-[1px] w-8 bg-zinc-950 mx-auto opacity-30 my-1"></div>
+          <div className="h-px w-8 bg-zinc-950 mx-auto opacity-30 my-1"></div>
           <a
             href="https://instagram.com"
             target="_blank"

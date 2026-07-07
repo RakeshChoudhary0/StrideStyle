@@ -34,7 +34,7 @@ const CategorySection = () => {
                   alt={cat.title}
                   fill
                   sizes="(max-w-640px) 50vw, (max-w-1024px) 33vw, 25vw"
-                  className="object-cover object-center transform scale-100 transition-transform duration-[1200ms] cubic-bezier(0.25, 1, 0.5, 1) group-hover:scale-106"
+                  className="object-cover object-center transform scale-100 transition-transform duration-1200 cubic-bezier(0.25, 1, 0.5, 1) group-hover:scale-106"
                   priority={true}
                 />
 

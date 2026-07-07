@@ -2,7 +2,7 @@
 
 import React from "react";
 import ShowProductCard from "../Components/ShowProductCard";
-import { Product, Parent } from "@/Features/Shop/Data/ProductData";
+import { Product } from "@/Features/Shop/Data/ProductData";
 
 const DealsSection = () => {
   const currentMonth = new Date()
@@ -22,13 +22,12 @@ const DealsSection = () => {
             {currentMonth} DEALS
           </h2>
 
-          <p className="text-zinc-400 text-xs md:text-sm tracking-[0.1em] uppercase font-medium max-w-md">
+          <p className="text-zinc-400 text-xs md:text-sm tracking-widest uppercase font-medium max-w-md">
             Premium lounge essentials and heavyweight separates at curated
             pricing.
           </p>
         </div>
 
-        {/* Clean Balanced Layout Framework: Swiper on Mobile -> Perfect 4-Column Grid on Laptop */}
         <div className="w-full relative">
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-none no-scrollbar snap-x snap-mandatory lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-x-visible lg:pb-0">
             {Product.slice(0, 4).map((product, index) => (

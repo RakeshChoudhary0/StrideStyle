@@ -56,7 +56,7 @@ const MainProductCard: React.FC<ProductCardProps> = ({
     <div className="w-full group">
       {/* Dynamic SEO Clean Route Path Alignment */}
       <Link href={`/product/${product.slug}`} className="block w-full">
-        <div className="relative w-full aspect-[3/4] bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
+        <div className="relative w-full aspect-3/4 bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
           <button
             onClick={handleLikeToggle}
             className="absolute top-2.5 right-2.5 z-20 w-8 h-8 hidden sm:flex items-center justify-center bg-white/90 backdrop-blur-xs rounded-full border border-zinc-200/60 text-zinc-900 shadow-sm cursor-pointer"
@@ -82,13 +82,13 @@ const MainProductCard: React.FC<ProductCardProps> = ({
                 onClick={handlePrevImage}
                 className="w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
               >
-                <ChevronLeft className="w-4 h-4 stroke-[2]" />
+                <ChevronLeft className="w-4 h-4 stroke-2" />
               </button>
               <button
                 onClick={handleNextImage}
                 className="w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
               >
-                <ChevronRight className="w-4 h-4 stroke-[2]" />
+                <ChevronRight className="w-4 h-4 stroke-2" />
               </button>
             </div>
           )}

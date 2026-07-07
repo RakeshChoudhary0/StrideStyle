@@ -36,7 +36,7 @@ const ShowcaseSection = () => {
           alt={featuredProduct.name}
           fill
           priority
-          className="object-cover object-center transform scale-100 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+          className="object-cover object-center transform scale-100 transition-transform duration-1200 ease-out group-hover:scale-[1.03]"
         />
 
         {hasDiscount && (

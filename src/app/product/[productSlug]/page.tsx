@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { Product, Parent } from "@/Features/Shop/Data/ProductData";
-import ProductView from "@/Features/Shop/SectionsProduct/ProductView";
+import ProductView from "@/Features/Product/Sections/ProductView";
 
 interface ProductPageProp {
   params: Promise<{
