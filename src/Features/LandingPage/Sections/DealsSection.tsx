@@ -2,7 +2,7 @@
 
 import React from "react";
 import ShowProductCard from "../Components/ShowProductCard";
-import { Product } from "../Data/DealsData";
+import { Product, Parent } from "@/Features/Shop/Data/ProductData";
 
 const DealsSection = () => {
   const currentMonth = new Date()

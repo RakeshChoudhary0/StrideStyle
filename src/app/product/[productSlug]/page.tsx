@@ -5,20 +5,14 @@ import ProductView from "@/Features/Shop/SectionsProduct/ProductView";
 
 interface ProductPageProp {
   params: Promise<{
-    slug: string;
-    _id: string;
-  }>;
-  searchParams: Promise<{
-    c: string;
-    [key: string]: string | string[] | undefined;
+    productSlug: string;
   }>;
 }
 
-const Page = async ({ params, searchParams }: ProductPageProp) => {
-  const { slug } = await params;
+const Page = async ({ params }: ProductPageProp) => {
+  const { productSlug } = await params;
 
-  // 1. Resolve exact product payload matching route slug
-  const targetProduct = Product.find((p) => p.slug === slug);
+  const targetProduct = Product.find((p) => p.slug === productSlug);
   if (!targetProduct) return notFound();
 
   const parentData = Parent.find((p) => p._id === targetProduct.parent);

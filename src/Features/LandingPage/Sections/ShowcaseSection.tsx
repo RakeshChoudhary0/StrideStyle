@@ -3,31 +3,31 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Parent, Product } from "../Data/ShowCaseData";
-import calculateDiscount from "@/Extras/Utils/DiscountCalculator";
+import { Product, Parent } from "@/Features/Shop/Data/ProductData";
 
 const ShowcaseSection = () => {
-
-  
   const featuredProduct = Product[0];
   const parentData = Parent.find((p) => p._id === featuredProduct.parent);
 
   const availableColors = parentData ? parentData.totalColors : [];
   const description = parentData ? parentData.description : "";
-  const subcategoryText = `${featuredProduct.for} // ${parentData?.style || "Premium"} ${parentData?.type || "Drop"}`;
 
-  const [selectedSize, setSelectedSize] = useState(
+  // Cleaned up category parsing matching unified gender, type, and style parameters
+  const subcategoryText = parentData
+    ? `${parentData.gender}'s wear // ${parentData.style} ${parentData.type}`
+    : "Premium Drop";
+
+  const [selectedSize, setSelectedSize] = useState<string>(
     featuredProduct.sizes[1] || "M",
   );
-  const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
 
-  const finalPrice = calculateDiscount(
-    featuredProduct.price,
-    featuredProduct.discount,
-  );
+  const displayPrice = featuredProduct.salePrice || featuredProduct.basePrice;
+  const hasDiscount = featuredProduct.discount > 0;
 
   return (
     <section className="w-full min-h-[500px] md:h-[75vh] bg-white text-zinc-950 flex flex-col md:flex-row select-none border-t border-b border-zinc-100">
+      {/* LEFT GALLERY PANEL */}
       <div className="w-full md:w-1/2 h-[480px] md:h-full relative bg-zinc-50 overflow-hidden border-b md:border-b-0 md:border-r border-zinc-100 group">
         <Image
           src={
@@ -36,11 +36,10 @@ const ShowcaseSection = () => {
           alt={featuredProduct.name}
           fill
           priority
-          className="object-cover object-center transform scale-100 transition-transform duration-1200 ease-out group-hover:scale-103"
+          className="object-cover object-center transform scale-100 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
         />
 
-        {/* Top Premium Badge */}
-        {featuredProduct.discount && (
+        {hasDiscount && (
           <div className="absolute top-6 left-6 z-10 bg-zinc-950 px-2.5 py-1">
             <span className="text-[9px] text-white font-bold tracking-[0.2em] uppercase">
               {featuredProduct.discount}% OFF DROP
@@ -48,7 +47,7 @@ const ShowcaseSection = () => {
           </div>
         )}
 
-        {/* Thumbnail Carousel Toggles (Hover over or click to view alternative angles) */}
+        {/* Thumbnail Interaction Strip */}
         {featuredProduct.images.length > 1 && (
           <div className="absolute bottom-6 left-6 z-10 flex gap-2">
             {featuredProduct.images.map((img, index) => (
@@ -59,12 +58,12 @@ const ShowcaseSection = () => {
                 className={`w-20 h-20 relative overflow-hidden rounded-none border transition-all ${
                   activeImageIdx === index
                     ? "border-zinc-950 opacity-100 scale-105"
-                    : "border-transparent opacity-100"
+                    : "border-transparent opacity-70 hover:opacity-100"
                 }`}
               >
                 <Image
                   src={img}
-                  alt="thumbnail"
+                  alt={`Thumbnail ${index + 1}`}
                   fill
                   className="object-cover"
                 />
@@ -74,6 +73,7 @@ const ShowcaseSection = () => {
         )}
       </div>
 
+      {/* RIGHT METADATA PANEL */}
       <div className="w-full md:w-1/2 flex flex-col justify-center px-6 py-12 md:py-0 md:px-16 lg:px-24 bg-white">
         <span className="text-[10px] font-bold tracking-[0.25em] text-zinc-400 uppercase mb-2 block">
           {subcategoryText}
@@ -87,6 +87,7 @@ const ShowcaseSection = () => {
           {description}
         </p>
 
+        {/* Color Tones Matrix */}
         {availableColors.length > 0 && (
           <div className="space-y-2.5 mb-6">
             <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
@@ -101,14 +102,14 @@ const ShowcaseSection = () => {
                   <div
                     key={color.colorName}
                     title={color.colorName}
-                    className={`w-6 h-6  flex items-center justify-center border transition-all ${
+                    className={`w-6 h-6 flex items-center justify-center border transition-all ${
                       isCurrentActiveColor
                         ? "border-zinc-950 scale-110 p-0.5"
                         : "border-zinc-200 hover:border-zinc-400"
                     }`}
                   >
                     <div
-                      className="w-full h-full  border border-black/10"
+                      className="w-full h-full border border-black/10"
                       style={{ backgroundColor: color.hex }}
                     />
                   </div>
@@ -118,6 +119,7 @@ const ShowcaseSection = () => {
           </div>
         )}
 
+        {/* Size Selection Array */}
         <div className="space-y-3 mb-8">
           <div className="flex justify-between items-center max-w-xs">
             <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">
@@ -153,14 +155,15 @@ const ShowcaseSection = () => {
           </div>
         </div>
 
+        {/* Numeric Pricing Display Context */}
         <div className="flex items-baseline gap-3 mb-8">
           <span className="text-2xl md:text-3xl font-black text-zinc-950 tracking-tight">
-            ₹{finalPrice.toLocaleString("en-IN")}
+            ₹{displayPrice.toLocaleString("en-IN")}
           </span>
-          {parseFloat(featuredProduct.discount) > 0 && (
+          {hasDiscount && (
             <>
               <span className="text-xs md:text-sm line-through text-zinc-400 font-medium">
-                ₹{parseFloat(featuredProduct.price).toLocaleString("en-IN")}
+                ₹{featuredProduct.basePrice.toLocaleString("en-IN")}
               </span>
               <span className="text-[10px] text-red-600 font-bold tracking-widest uppercase">
                 ({featuredProduct.discount}% OFF)
@@ -169,12 +172,13 @@ const ShowcaseSection = () => {
           )}
         </div>
 
+        {/* Dynamic clean SEO action link container */}
         <div className="w-full max-w-md">
           <Link
-            href={`/checkout?id=${featuredProduct._id}&size=${selectedSize}`}
+            href={`/product/${featuredProduct.slug}`}
             className="group inline-flex w-full items-center justify-center bg-zinc-950 text-white text-xs font-bold tracking-[0.2em] uppercase py-4 transition-all duration-300 hover:bg-zinc-900 rounded-none"
           >
-            BUY NOW
+            View The Product
           </Link>
         </div>
       </div>

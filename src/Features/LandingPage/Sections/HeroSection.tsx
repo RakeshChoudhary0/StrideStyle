@@ -3,11 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import ShowProductCard from "../Components/ShowProductCard";
-import { Product } from "../Data/heroData";
+import { Product, Parent } from "@/Features/Shop/Data/ProductData";
 
 const HeroSection = () => {
   return (
-    <section className="w-full h-screen bg-white text-zinc-950 select-none pt-2 md:pt-24 overflow-hidden">
+    <section className="w-full pb-10  md:pb-0 lg:min-h-screen bg-white text-zinc-950 select-none pt-1  md:pt-24 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
         <div className="w-full text-center py-14 flex flex-col items-center">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-[-0.02em] leading-[0.95] mb-4 font-streethead max-w-3xl text-zinc-900">

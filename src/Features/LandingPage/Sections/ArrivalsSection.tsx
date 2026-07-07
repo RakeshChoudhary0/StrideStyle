@@ -1,5 +1,5 @@
 import MainProductCard from "@/Components/Products/MainProductCard";
-import { Product, Parent } from "../Data/ArrivalsData";
+import { Product, Parent } from "@/Features/Shop/Data/ProductData";
 
 const ArrivalsSection = () => {
   return (

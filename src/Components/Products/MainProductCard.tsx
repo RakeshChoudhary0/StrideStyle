@@ -4,24 +4,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
-import calculateDiscount from "@/Extras/Utils/DiscountCalculator";
-
-export interface ProductType {
-  _id: string;
-  parent: string;
-  name: string;
-  slug: string;
-  color: string;
-  price: string;
-  discount: string;
-  images: string[];
-  sizes: string[];
-  stock: { size: string; stock: number }[];
-}
+import { ProductType } from "@/Features/Shop/Data/ProductData";
 
 export interface ParentColorType {
   colorName: string;
   hex: string;
+  productSlug: string;
 }
 
 interface ProductCardProps {
@@ -38,8 +26,9 @@ const MainProductCard: React.FC<ProductCardProps> = ({
 
   if (!product || !product.images || product.images.length === 0) return null;
 
-  const hasDiscount = product.discount !== "0" && product.discount !== "";
+  const hasDiscount = product.discount > 0;
   const hasMultipleImages = product.images.length > 1;
+  const displayPrice = product.salePrice || product.basePrice;
 
   const handlePrevImage = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,14 +54,12 @@ const MainProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className="w-full group">
-      <Link
-        href={`/shop/${product.slug}/${product._id}?c=${product.color}`}
-        className="block w-full"
-      >
-        <div className="relative w-full aspect-3/4  bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
+      {/* Dynamic SEO Clean Route Path Alignment */}
+      <Link href={`/product/${product.slug}`} className="block w-full">
+        <div className="relative w-full aspect-[3/4] bg-zinc-50 overflow-hidden rounded-lg border border-zinc-100/80">
           <button
             onClick={handleLikeToggle}
-            className="absolute top-2.5 right-2.5 z-20 w-8 h-8 hidden sm:flex items-center justify-center bg-white/90 backdrop-blur-xs rounded-full border border-zinc-200/60 text-zinc-900 shadow-xs cursor-pointer"
+            className="absolute top-2.5 right-2.5 z-20 w-8 h-8 hidden sm:flex items-center justify-center bg-white/90 backdrop-blur-xs rounded-full border border-zinc-200/60 text-zinc-900 shadow-sm cursor-pointer"
           >
             <Heart
               className={`w-4 h-4 transition-colors duration-200 ${
@@ -93,13 +80,13 @@ const MainProductCard: React.FC<ProductCardProps> = ({
             <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 z-30 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
               <button
                 onClick={handlePrevImage}
-                className="w-9 h-9 rounded-full bg-white shadow-xs flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2]" />
               </button>
               <button
                 onClick={handleNextImage}
-                className="w-9 h-9 rounded-full bg-white shadow-xs flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-zinc-900 border border-zinc-100 pointer-events-auto cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4 stroke-[2]" />
               </button>
@@ -110,34 +97,32 @@ const MainProductCard: React.FC<ProductCardProps> = ({
             src={product.images[currentImgIndex]}
             alt={product.name}
             fill
-            sizes="(max-w-[768px]) 50vw, 25vw"
+            sizes="(max-width: 768px) 50vw, 25vw"
             className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.01]"
             priority
           />
         </div>
 
         <div className="mt-2 flex flex-col gap-1 px-0.5">
-          <h3 className="text-[14px] font-medium tracking-tight text-zinc-900 truncate uppercase line- line-clamp-2">
+          <h3 className="text-[14px] font-medium tracking-tight text-zinc-900 truncate uppercase line-clamp-2">
             {product.name}
           </h3>
 
-          {/* Price Layout Node */}
+          {/* Corrected Clean Numeric Price Layout Node */}
           <div className="flex items-baseline gap-1.5 font-mono text-[13px]">
-            <span className="font-bold text-zinc-900 text-[12p] md:text-[16px] ">
-              ₹
-              {Number(
-                calculateDiscount(product.price, product.discount),
-              ).toLocaleString("en-IN")}
+            <span className="font-bold text-zinc-900 text-[14px] md:text-[16px]">
+              ₹{displayPrice.toLocaleString("en-IN")}
             </span>
             {hasDiscount && (
               <span className="text-zinc-400 line-through">
-                ₹{product.price}
+                ₹{product.basePrice.toLocaleString("en-IN")}
               </span>
             )}
           </div>
 
+          {/* Dynamic Swatch Rendering Context */}
           {availableColors && availableColors.length > 0 && (
-            <div className="flex items-center gap-1.5 mt-0.8">
+            <div className="flex items-center gap-1.5 mt-1">
               {availableColors.slice(0, 4).map((colorItem, i) => {
                 const isActiveSelection =
                   product.color.toLowerCase() === colorItem.hex.toLowerCase();
@@ -146,7 +131,7 @@ const MainProductCard: React.FC<ProductCardProps> = ({
                     key={i}
                     title={colorItem.colorName}
                     style={{ backgroundColor: colorItem.hex }}
-                    className={`w-3 h-3  border border-zinc-300/60 ${
+                    className={`w-3 h-3 rounded-full border border-zinc-300/60 ${
                       isActiveSelection
                         ? "ring-1 ring-offset-[1.5px] ring-zinc-950 border-zinc-950"
                         : ""
@@ -154,6 +139,11 @@ const MainProductCard: React.FC<ProductCardProps> = ({
                   />
                 );
               })}
+              {availableColors.length > 4 && (
+                <span className="text-[10px] text-zinc-400 font-medium pl-0.5">
+                  +{availableColors.length - 4} More
+                </span>
+              )}
             </div>
           )}
         </div>
