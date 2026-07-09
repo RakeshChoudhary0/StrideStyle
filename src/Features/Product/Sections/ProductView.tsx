@@ -107,7 +107,6 @@ export default function ProductView({
 
   return (
     <div className="min-h-screen bg-zinc-50/60 pb-32 md:pb-20">
-      {/* Mobile Sticky Navigation Row */}
       <div className="fixed top-4 left-4 z-50 md:hidden">
         <Link
           href="/shop"
