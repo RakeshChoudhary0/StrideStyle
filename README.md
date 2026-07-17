@@ -8,46 +8,35 @@ An enterprise-grade, high-performance clothing storefront built with **Next.js (
 
 ```text
 src/
-├── app/                            # 🌐 ROUTING & PAGE LAYER ONLY
-│   ├── layout.tsx                  # Global root layout & font configurations
-│   ├── page.tsx                    # Landing page -> Imports <LandingPageFeature/>
-│   ├── global.css                  # Tailored utility styling directives
-│   ├── shop/
-│   │   └── page.tsx                # Storefront feed -> Imports <ShopFeature/>
-│   ├── admin/                      # 🔐 ISOLATED ADMIN ROUTE WRAPPERS
-│   │   ├── page.tsx                # Metrics dashboard layout
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── global.css
+│   ├── Product/[productSlug]
+│   │   └── page.tsx
+│   ├── Shop/
+│   │   ├── page.tsx
 │   │   └── inventory/
-│   │       └── page.tsx            # Inventory controller portal
-│   └── api/                        # 🧠 BACKEND CONTROLLERS (Serverless Routes)
-│       ├── products/route.ts       # REST endpoint handling product entities
-│       └── checkout/route.ts       # Transactional gateway & webhook processor
+│   │       └── page.tsx
 │
-├── features/                       # 🧩 DOMAIN BUSINESS LOGIC CORES
+├── features/
 │   ├── LandingPage/
-│   │   ├── components/             # Localized layout tokens (banners, promotional cards)
-│   │   ├── sections/               # Macro sections (HeroSection, ArrivalsSection, DealsSection)
-│   │   └── data/                   # Isolated static layout mock data arrays
+│   │   ├── components/
+│   │   ├── sections/
+│   │   └── data/
 │   │
-│   ├── Shop/                       # 🛍️ CORE STOREFRONT DOMAIN MODULE
-│   │   ├── components/             # ProductGrid, ProductCard, FilterSidebar components
-│   │   ├── hooks/                  # Custom abstractions (useProductFilter, usePagination)
-│   │   └── services/               # Dynamic abstract fetches pointing to /api/products
-│   │
-│   ├── Admin/                      # 📊 INDEPENDENT BACK-OFFICE OPERATIONS CONTROL
-│   │   ├── components/             # Sidebar rails, SalesGraphs, ProductUploadForm inputs
-│   │   ├── hooks/                  # Business flows managing mutation states
-│   │   └── services/               # Asset ingestion pipelines (Multipart mutations to AWS S3)
-│   │
-│   └── Cart/                       # 🛒 ISOLATED CLIENT TRANSACTION STATE
-│       ├── components/             # CartDrawer slider overlay, individual CartItems
-│       └── store/                  # Distributed cache or atomic store configurations
+│   ├── Shop/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   └── services/
 │
-├── components/                     # ⚛️ GLOBAL ATOMIC DESIGN TOKENS
-│   └── ui/                         # Design system elements (Buttons, Dialogs, Input primitives)
-│
-└── Extras/                         # 🛠️ CROSS-CUTTING APPLICATION UTILITIES
-    ├── assets/                     # Immutable SVGs, brand assets, static layouts
-    ├── hooks/                      # Global viewport listeners (useMediaQuery, useClickOutside)
-    ├── providers/                  # Application runtime providers (ThemeProvider, ReactQuery)
+├── components/
+│   └── ui/
+└── Extras/
+    ├── assets/
+    ├── hooks/
+    ├── providers/
     └── utils/                      # Pure helper computations (formatCurrency, string merges)
 ```
+
+---
