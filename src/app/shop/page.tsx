@@ -7,16 +7,13 @@ import MainProductCard from "@/Components/Products/MainProductCard";
 import FilterDrawer from "@/Features/Shop/Components/FilterDrawer";
 
 export default function AllProductsShopPage() {
-  // UI Panel Toggle State
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // Active Filtration Sub-selection Arrays
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [maxPrice, setMaxPrice] = useState<number>(4000);
 
-  // Parse raw filter limits dynamically from arrays
   const filterOptions = useMemo(() => {
     const categories = Array.from(new Set(Parent.map((p) => p.categorySlug)));
     const styles = Array.from(new Set(Parent.map((p) => p.style)));
@@ -29,7 +26,6 @@ export default function AllProductsShopPage() {
     return { categories, styles, sizes, highestPrice };
   }, []);
 
-  // Compute products list against parameters
   const filteredProducts = useMemo(() => {
     return Product.filter((product) => {
       const parentItem = Parent.find((p) => p._id === product.parent);
@@ -60,61 +56,80 @@ export default function AllProductsShopPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50/50 pt-28 pb-24 px-4 sm:px-6 lg:px-12 select-none">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Minimalist Professional Header */}
-        <div className="flex items-end justify-between border-b border-zinc-200/60 pb-5">
-          <div className="space-y-1.5">
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight text-zinc-900 uppercase">
-              Catalogue
+    /* padding-bottom adjusted safely to never collide with MobileBottomBar links */
+    <div className="min-h-screen bg-zinc-50/30 pt-0 md:pt-32 pb-32 md:pb-24 px-4 sm:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto space-y-0 md:space-y-12">
+        {/* Core Header Area */}
+        <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-zinc-200/60 py-3">
+          <div className="space-y-1 md:space-y-2">
+            <h1 className="text-2xl md:text-3xl font-serif text-zinc-900 tracking-wide">
+              The Collection
             </h1>
-            <p className="text-zinc-400 text-xs font-medium tracking-wide">
-              Displaying {filteredProducts.length} of {Product.length}{" "}
-              contemporary pieces
-            </p>
           </div>
 
           <button
             onClick={() => setIsDrawerOpen(true)}
-            className="flex items-center gap-2.5 border border-zinc-900 bg-white px-5 py-3 text-xs font-bold uppercase tracking-widest text-zinc-950 hover:bg-zinc-900 hover:text-white transition-all duration-300 shadow-xs cursor-pointer active:scale-98"
+            type="button"
+            className="hidden md:flex items-center justify-center gap-2.5 border border-zinc-900 bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-zinc-950 hover:bg-zinc-900 hover:text-white transition-all duration-300 shadow-xs cursor-pointer active:scale-98"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" strokeWidth={2} />
+            Filter Choices
+          </button>
+        </div>
+
+        {/* Mobile Sticky Action Bar — Sticks beautifully below your view stack */}
+        <div className="sticky top-0 space-y-2 mb-5 z-30 -mx-4 px-4 py-3 bg-zinc-50/90 backdrop-blur-md border-b border-zinc-200/40 md:hidden flex items-center justify-between">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+            {filteredProducts.length} Items Available
+          </span>
+
+          <button
+            onClick={() => setIsDrawerOpen(true)}
+            type="button"
+            className="flex items-center gap-2 border border-zinc-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-widest text-zinc-900 rounded-lg shadow-xs active:scale-95"
+          >
+            <SlidersHorizontal
+              className="w-3.5 h-3.5 text-zinc-500"
+              strokeWidth={2}
+            />
             Filter
           </button>
         </div>
 
-        {/* Product Space Grid Viewport */}
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-24 bg-white border border-zinc-200/60 rounded-xl max-w-xl mx-auto p-6 space-y-4 shadow-xs">
-            <p className="text-xs text-zinc-400 font-medium tracking-wider uppercase">
-              No configurations match your current selection filter criteria.
+          <div className="text-center py-20 bg-white border border-zinc-200/60 rounded-2xl max-w-md mx-auto p-8 space-y-5 shadow-xs">
+            <p className="text-sm text-zinc-500 font-medium tracking-wide">
+              We couldn&apos;t find any items matching your exact choices.
             </p>
             <button
               onClick={handleResetFilters}
-              className="text-[11px] font-bold uppercase border border-zinc-950 bg-zinc-950 text-white px-6 py-3 tracking-widest hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="text-xs font-bold uppercase tracking-widest border border-zinc-950 bg-zinc-950 text-white px-6 py-3 hover:bg-zinc-800 transition-colors cursor-pointer shadow-sm"
             >
-              Reset Filters
+              Clear Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-12">
             {filteredProducts.map((product) => {
               const matchedParent = Parent.find(
                 (p) => p._id === product.parent,
               );
               return (
-                <MainProductCard
+                <div
                   key={product._id}
-                  product={product}
-                  availableColors={matchedParent?.totalColors || []}
-                />
+                  className="transition-transform duration-300 hover:-translate-y-1"
+                >
+                  <MainProductCard
+                    product={product}
+                    availableColors={matchedParent?.totalColors || []}
+                  />
+                </div>
               );
             })}
           </div>
         )}
       </div>
 
-      {/* Decoupled Filter Drawer Layout */}
       <FilterDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
