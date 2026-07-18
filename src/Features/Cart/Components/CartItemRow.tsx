@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Trash2, Plus, Minus, ShieldCheck } from "lucide-react";
+import { Trash2, Plus, Minus } from "lucide-react";
 import { ProductType, ParentType } from "@/Features/Shop/Data/ProductData";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,7 +55,7 @@ export const CartItemRow = ({
             <h3 className="text-xs md:text-sm font-bold tracking-tight text-zinc-900 truncate uppercase">
               {parentInfo?.name || product.name}
             </h3>
-            <div className="text-right flex-shrink-0">
+            <div className="text-right shrink-0">
               <p className="text-xs md:text-sm font-bold text-zinc-900">
                 ₹{product.salePrice}
               </p>
@@ -75,7 +75,7 @@ export const CartItemRow = ({
           <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-4 text-[11px] text-zinc-500 font-medium">
             <p className="flex items-center gap-2 bg-zinc-50 border border-zinc-100 px-2 py-0.5 rounded-sm">
               <span
-                className="w-2.5 h-2.5 rounded-full border border-zinc-300 flex-shrink-0"
+                className="w-2.5 h-2.5 rounded-full border border-zinc-300 shrink-0"
                 style={{ backgroundColor: product.color }}
               />
               <span className="text-zinc-700">{product.colorName}</span>
