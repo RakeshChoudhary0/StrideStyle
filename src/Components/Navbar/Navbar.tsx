@@ -38,14 +38,11 @@ const DESKTOP_LINKS: NavLinkItem[] = [
 // 2. Mobile App-Style Utility Navigation (No Profile/Cart conflict)
 const MOBILE_LINKS: NavLinkItem[] = [
   { name: "Home", href: "/", icon: Home, shortName: "Home" },
-  { name: "Shop", href: "/shop", icon: Search, shortName: "Shop" }, // Search icon fits premium shop discovery on mobile
+  { name: "Shop", href: "/shop", icon: Search, shortName: "Shop" },
   { name: "Cart", href: "/cart", icon: ShoppingBag, shortName: "Cart" },
   { name: "Profile", href: "/account", icon: User, shortName: "Profile" },
 ];
 
-// ==========================================
-// Main Orchestrator Component
-// ==========================================
 const Navbar = () => {
   const pathname = usePathname();
   const checkActive = (href: string) =>
@@ -54,7 +51,6 @@ const Navbar = () => {
   return (
     <>
       <DesktopHeader checkActive={checkActive} />
-
       <MobileBottomBar checkActive={checkActive} />
     </>
   );
@@ -67,37 +63,41 @@ interface HeaderProps {
 }
 
 const DesktopHeader = ({ checkActive }: HeaderProps) => (
-  <header className="fixed top-0 left-0 w-full z-50 hidden md:grid grid-cols-3 items-center px-12 h-20 bg-white/70 backdrop-blur-md border-b border-zinc-200/60 select-none">
-    <nav className="flex items-center gap-6">
-      {DESKTOP_LINKS.map((link) => {
-        const isActive = checkActive(link.href);
-        return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`text-xs uppercase tracking-widest font-semibold transition-all duration-200 relative py-1 ${
-              isActive ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-900"
-            }`}
-          >
-            {link.name}
-            {isActive && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-zinc-900 rounded-full" />
-            )}
-          </Link>
-        );
-      })}
-    </nav>
-
-    <div className="flex justify-center">
+  <header className="fixed top-0 left-0 w-full z-50 hidden md:grid grid-cols-3 items-center px-12 h-24 select-none pointer-events-none">
+    <div className="flex justify-start pointer-events-auto">
       <Link
         href="/"
         className="text-xl font-streethead font-extrabold tracking-tighter uppercase text-zinc-900"
       >
-        StrideStyle
+        Stride Style
       </Link>
     </div>
 
-    <div className="flex items-center justify-end gap-4">
+    {/* Middle Section: Links with Floating White Glass Capsule */}
+    <div className="flex justify-center w-full pointer-events-auto">
+      <nav className="flex items-center gap-2 px-6 py-5 rounded-full bg-white/10 backdrop-blur-md border border-zinc-200 shadow-[0_8px_32px_0_rgba(0,0,0,0.04)]">
+        {DESKTOP_LINKS.map((link) => {
+          const isActive = checkActive(link.href);
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-xs uppercase tracking-widest font-semibold transition-all duration-200 relative py-1 px-2 ${
+                isActive ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-900"
+              }`}
+            >
+              {link.name}
+              {isActive && (
+                <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-zinc-900 rounded-full" />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
+
+    {/* Account Section: Cart and User Profile */}
+    <div className="flex items-center justify-end gap-4 pointer-events-auto">
       <Link
         href="/account"
         className={`p-2 transition-all duration-200 hover:scale-105 ${checkActive("/account") ? "text-zinc-900" : "text-zinc-700 hover:text-zinc-900"}`}

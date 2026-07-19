@@ -8,9 +8,10 @@ import { categories } from "../Data/categeoryData";
 
 const CategorySection = () => {
   return (
-    <section className="w-full bg-white text-zinc-950 md:py-20 py-4 px-4 sm:px-6 lg:px-12 select-none border-t border-zinc-100">
+    <section className="w-full bg-white md:h-screen flex justify-center items-center text-zinc-950 md:py-20 py-12 px-0 md:px-12 select-none border-t border-zinc-100">
       <div className="w-full flex flex-col items-center">
-        <div className="text-center md:mb-16 mb-6 space-y-3">
+        {/* Header Section */}
+        <div className="text-center md:mb-16 mb-8 px-6 space-y-3">
           <h2 className="text-3xl md:text-5xl font-streethead font-black uppercase tracking-tight text-zinc-900">
             SHOP BY CATEGORY
           </h2>
@@ -21,19 +22,20 @@ const CategorySection = () => {
           </p>
         </div>
 
-        <div className="w-full grid grid-cols-2 gap-2 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+        {/* Categories Layout: Side-scrolling on Mobile, Grid on Desktop */}
+        <div className="w-full flex overflow-x-auto pb-6 px-6 gap-4 snap-x snap-mandatory scrollbar-none md:grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 md:gap-4 md:pb-0 md:px-0">
           {categories.map((cat) => (
             <Link
               key={cat.id}
               href={cat.linkUrl}
-              className="group relative w-full aspect-3/4 overflow-hidden bg-zinc-50 rounded-none block border border-zinc-100/50"
+              className="group relative flex-none w-[78vw] sm:w-[50vw] md:w-full aspect-3/4 overflow-hidden bg-zinc-50 rounded-none block border border-zinc-100/50 snap-center"
             >
               <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
                 <Image
                   src={cat.imgUrl}
                   alt={cat.title}
                   fill
-                  sizes="(max-w-640px) 50vw, (max-w-1024px) 33vw, 25vw"
+                  sizes="(max-w-768px) 80vw, (max-w-1024px) 33vw, 25vw"
                   className="object-cover object-center transform scale-100 transition-transform duration-1200 cubic-bezier(0.25, 1, 0.5, 1) group-hover:scale-106"
                   priority={true}
                 />
@@ -67,10 +69,11 @@ const CategorySection = () => {
           ))}
         </div>
 
-        <div className="mt-8 md:mt-16 md:mb-0 mb-7 text-center">
+        {/* Bottom CTA Button */}
+        <div className="mt-6 md:mt-16 mb-4 text-center px-6 w-full md:w-auto">
           <Link
             href="/shop"
-            className="group inline-flex items-center justify-center border border-zinc-950 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-[0.15em] text-zinc-950 transition-all duration-300 hover:bg-zinc-950 hover:text-white sm:text-sm"
+            className="group inline-flex w-full md:w-auto items-center justify-center border border-zinc-950 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-[0.15em] text-zinc-950 transition-all duration-300 hover:bg-zinc-950 hover:text-white sm:text-sm"
           >
             Browse Full Catalog
           </Link>

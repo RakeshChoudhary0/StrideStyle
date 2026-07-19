@@ -1,5 +1,5 @@
 import ArrivalsSection from "@/Features/LandingPage/Sections/ArrivalsSection";
-import CardSection from "@/Features/LandingPage/Sections/ShowcaseSection";
+
 import DealsSection from "@/Features/LandingPage/Sections/DealsSection";
 import FollowOnInstagramSection from "@/Features/LandingPage/Sections/FollowOnInstagram";
 import HeroSection from "@/Features/LandingPage/Sections/HeroSection";
@@ -11,7 +11,6 @@ const Home = () => {
     <div className="h-full w-full ">
       <HeroSection />
       <CategorySection />
-      <CardSection />
       <PrioritySection />
       <DealsSection />
       <ArrivalsSection />
