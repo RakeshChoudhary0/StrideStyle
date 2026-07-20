@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 
 const FollowOnInstagramSection = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
   const instaFeed = [
     {
       id: 1,
@@ -47,78 +44,87 @@ const FollowOnInstagramSection = () => {
     },
   ];
 
-  // Dynamically calculate horizontal scroll percentage for the minimalist progress indicator
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    const totalScrollable = scrollWidth - clientWidth;
-    if (totalScrollable <= 0) return;
-    setScrollProgress((scrollLeft / totalScrollable) * 100);
-  };
-
   return (
-    <section className="w-full bg-white text-zinc-950 py-20 select-none border-t border-zinc-100 overflow-hidden">
-      <div className="w-full flex flex-col items-center">
+    <section className="w-full bg-white text-zinc-950 py-16 md:py-24 select-none border-t border-zinc-100 overflow-hidden antialiased">
+      <div className="w-full max-w-7xl mx-auto">
         {/* Editorial Section Heading */}
-        <div className="text-center mb-12 space-y-2.5 px-4">
+        <div className="text-center mb-10 md:mb-16 space-y-2 px-4">
           <span className="text-[10px] font-bold tracking-[0.25em] text-zinc-400 uppercase block">
-            On the Grid
+            ON THE GRID
           </span>
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-zinc-900">
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-zinc-900 font-streethead">
             WEAR THE LOOK
           </h2>
-          <div className="h-px w-8 bg-zinc-950 mx-auto opacity-30 my-1"></div>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-600 hover:text-zinc-950 transition-colors"
-          >
-            <SiInstagram size={14} />
-            @YOURBRANDNAME
-          </a>
+          <div className="pt-1">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest text-zinc-500 hover:text-zinc-950 transition-colors uppercase"
+            >
+              <SiInstagram
+                size={12}
+                className="text-zinc-400 group-hover:text-zinc-950"
+              />
+              @YOURBRANDNAME
+            </a>
+          </div>
         </div>
 
-        {/* Carousel Wrapper: Touch Swipe Scroll on Mobile, Perfect Grid Grid on Desktop */}
-        <div className="w-full relative px-4 md:px-0">
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="w-full flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none no-scrollbar pb-6 md:pb-0 md:gap-[2px] lg:grid lg:grid-cols-6 lg:overflow-x-visible lg:bg-zinc-100"
-          >
+        {/* Responsive Layout Display Track */}
+        <div className="w-full px-4 md:px-8">
+          {/* Mobile Viewport: Fluid Carousel with Native Padding Peek */}
+          <div className="flex md:hidden gap-3.5 overflow-x-auto pb-4 scrollbar-none no-scrollbar snap-x snap-mandatory -mx-4 px-4">
             {instaFeed.map((post) => (
               <a
-                key={post.id}
+                key={`mb-insta-${post.id}`}
                 href={post.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-w-[75vw] sm:min-w-[45vw] md:min-w-[33vw] lg:min-w-0 group relative aspect-square overflow-hidden bg-zinc-50 block snap-center"
+                className="min-w-[72vw] aspect-square relative rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-100 block snap-center active:scale-[0.98] transition-transform duration-150"
               >
                 <Image
                   src={post.imgUrl}
-                  alt="Instagram Streetwear Look"
+                  alt="Instagram Lookbook"
                   fill
-                  sizes="(max-w-640px) 75vw, (max-w-1024px) 33vw, 16vw"
+                  sizes="75vw"
+                  className="object-cover object-center"
+                />
+                {/* Clean, Non-obtrusive Mobile branding link identifier */}
+                <div className="absolute bottom-3 right-3 bg-black/40 backdrop-blur-md p-1.5 rounded-full text-white">
+                  <SiInstagram size={12} />
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop Viewport: Premium Minimalist Grid Layout */}
+          <div className="hidden md:grid grid-cols-6 gap-1.5 w-full bg-white">
+            {instaFeed.map((post) => (
+              <a
+                key={`dt-insta-${post.id}`}
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden bg-zinc-50 block border border-zinc-100"
+              >
+                <Image
+                  src={post.imgUrl}
+                  alt="Instagram Lookbook"
+                  fill
+                  sizes="(max-w-1024px) 33vw, 16vw"
                   className="object-cover object-center transform scale-100 transition-transform duration-700 ease-out group-hover:scale-104"
                 />
 
-                {/* Premium Glassmorphic Hover Mask */}
-                <div className="absolute inset-0 bg-zinc-950/40 opacity-0 lg:group-hover:opacity-100 backdrop-blur-[2px] transition-all duration-300 flex items-center justify-center">
-                  <div className="bg-white text-zinc-950 p-3 rounded-full transform translate-y-2 lg:group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
-                    <SiInstagram size={16} />
+                {/* Micro Glassmorphic Hover Overlay */}
+                <div className="absolute inset-0 bg-zinc-950/20 opacity-0 group-hover:opacity-100 backdrop-blur-[2px] transition-all duration-300 flex items-center justify-center">
+                  <div className="bg-white text-zinc-950 p-3 rounded-full transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                    <SiInstagram size={14} />
                   </div>
                 </div>
               </a>
             ))}
           </div>
-        </div>
-
-        {/* Premium Minimalist Progress Timeline Bar (Visible ONLY on Mobile Viewports) */}
-        <div className="w-24 h-[2px] bg-zinc-100 mt-4 rounded-full relative overflow-hidden lg:hidden">
-          <div
-            className="absolute top-0 left-0 h-full bg-zinc-950 transition-all duration-150 ease-out"
-            style={{ width: `${scrollProgress}%` }}
-          />
         </div>
       </div>
     </section>

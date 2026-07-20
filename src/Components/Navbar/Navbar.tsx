@@ -14,7 +14,6 @@ import {
   LucideIcon,
 } from "lucide-react";
 
-// Shared Configuration Type
 interface NavLinkItem {
   name: string;
   href: string;
@@ -22,7 +21,6 @@ interface NavLinkItem {
   shortName: string;
 }
 
-// 1. Desktop High-Intent Navigation
 const DESKTOP_LINKS: NavLinkItem[] = [
   { name: "Shop All", href: "/shop", icon: ShoppingBag, shortName: "Shop" },
   {
@@ -35,7 +33,6 @@ const DESKTOP_LINKS: NavLinkItem[] = [
   { name: "Our Brands", href: "/brands", icon: Layers, shortName: "Brands" },
 ];
 
-// 2. Mobile App-Style Utility Navigation (No Profile/Cart conflict)
 const MOBILE_LINKS: NavLinkItem[] = [
   { name: "Home", href: "/", icon: Home, shortName: "Home" },
   { name: "Shop", href: "/shop", icon: Search, shortName: "Shop" },
