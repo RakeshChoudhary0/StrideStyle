@@ -79,7 +79,7 @@ const DesktopHeader = ({ checkActive, isScrolled }: HeaderProps) => (
     }`}
   >
     {/* Left Logo - Fixed dimension footprint prevents squishing */}
-    <div className="flex-shrink-0 min-w-[140px]">
+    <div className="shrink-0 min-w-[140px]">
       <Link
         href="/"
         className="text-lg lg:text-xl font-streethead font-black tracking-tight uppercase text-zinc-950"
@@ -89,7 +89,7 @@ const DesktopHeader = ({ checkActive, isScrolled }: HeaderProps) => (
     </div>
 
     {/* Middle Section Navigation Capsule - Keeps items stable across all screens */}
-    <div className="flex-grow flex justify-center px-4 max-w-2xl mx-auto">
+    <div className="grow flex justify-center px-4 max-w-2xl mx-auto">
       <nav className="flex items-center gap-1 p-1.5 rounded-full border border-zinc-200/60 bg-white/80 shadow-xs backdrop-blur-xs">
         {DESKTOP_LINKS.map((link) => {
           const isActive = checkActive(link.href);
@@ -111,7 +111,7 @@ const DesktopHeader = ({ checkActive, isScrolled }: HeaderProps) => (
     </div>
 
     {/* Account Section: Cart and User Profile */}
-    <div className="flex items-center justify-end gap-1.5 flex-shrink-0 min-w-[140px]">
+    <div className="flex items-center justify-end gap-1.5 shrink-0 min-w-[140px]">
       <Link
         href="/account"
         className={`p-2.5 rounded-full transition-all duration-200 ${
