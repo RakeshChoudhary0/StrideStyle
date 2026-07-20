@@ -33,16 +33,16 @@ const DealsSection = () => {
           </p>
         </div>
 
-        {/* Unified Responsive Track: Smooth Slider on Mobile -> Rigid Grid on Desktop */}
+        {/* Fluid Adaptive Track: Scroll on Mobile/Tablet (md) -> Rigid Grid on Desktop (lg) */}
         <div className="w-full relative">
-          <div className="flex gap-5 md:gap-6 overflow-x-auto pb-6 md:pb-0 scrollbar-none no-scrollbar snap-x snap-mandatory md:grid md:grid-cols-4 md:overflow-x-visible">
+          <div className="flex md:flex-row gap-5 overflow-x-auto pb-6 lg:pb-0 scrollbar-none no-scrollbar snap-x snap-mandatory lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-x-visible">
             {renderingList.map((product, index) => (
               <div
                 key={product._id}
-                className="min-w-[80vw] sm:min-w-[45vw] md:min-w-0 snap-center bg-white transition-all duration-300"
+                className="min-w-[78vw] sm:min-w-[45vw] md:min-w-[33vw] lg:min-w-0 snap-start shrink-0 bg-white"
               >
                 {/* Embedded ShowProductCard Wrapper */}
-                <div className="w-full h-full transform active:scale-[0.99] md:active:scale-100 transition-transform">
+                <div className="w-full h-full transform active:scale-[0.99] lg:hover:scale-[1.01] lg:active:scale-100 transition-transform duration-200">
                   <ShowProductCard product={product} index={index} />
                 </div>
               </div>

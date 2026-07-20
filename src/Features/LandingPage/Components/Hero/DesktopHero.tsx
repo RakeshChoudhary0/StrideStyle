@@ -7,26 +7,27 @@ import { Product } from "@/Features/Shop/Data/ProductData";
 
 const DesktopHero = () => {
   return (
-    <div className="w-full h-screen pb-10 lg:min-h-screen bg-white text-zinc-950 select-none pt-24 overflow-hidden">
+    <div className="w-full min-h-screen bg-white text-zinc-950 select-none pt-24 pb-16 overflow-hidden antialiased">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
-        <div className="w-full text-center py-14 flex flex-col items-center">
+        {/* Main Copy & Hero CTA Hero Title */}
+        <div className="w-full text-center py-12 md:py-16 flex flex-col items-center">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-[-0.02em] leading-[0.95] mb-4 font-streethead max-w-3xl text-zinc-900">
             DESIGNED TO LIVE IN.
           </h1>
 
-          <p className="text-zinc-400 text-xs md:text-sm tracking-widest uppercase font-medium md:mb-8 mb-5 max-w-md">
+          <p className="text-zinc-400 text-xs md:text-sm tracking-widest uppercase font-medium mb-8 max-w-md">
             Premium heavyweight silhouettes crafted for everyday comfort.
           </p>
 
           <Link
             href="/shop"
-            className="px-10 py-4 bg-zinc-950 text-white text-xs font-bold tracking-[0.25em] uppercase transition-all duration-200 border border-zinc-950 hover:bg-white hover:text-zinc-950 rounded-none active:scale-98"
+            className="px-10 py-4 bg-zinc-950 text-white text-xs font-bold tracking-[0.25em] uppercase transition-all duration-200 border border-zinc-950 hover:bg-white hover:text-zinc-950 active:scale-98"
           >
             EXPLORE THE COMFORT
           </Link>
         </div>
 
-        {/* Clean Header Rule Line */}
+        {/* Section Divider Meta Line */}
         <div className="w-full flex items-end justify-between border-b border-zinc-100 pb-3 mb-6">
           <h2 className="text-xs md:text-sm font-bold tracking-[0.15em] uppercase text-zinc-900 font-streethead">
             NEW ARRIVALS
@@ -39,11 +40,14 @@ const DesktopHero = () => {
           </Link>
         </div>
 
-        {/* Perfect Structural Layout Grid */}
+        {/* Fluid Adaptive Product Shelf: Horizontal Scroll on Tablets (md) -> Grid on Desktops (lg) */}
         <div className="w-full relative">
-          <div className="lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-x-visible lg:pb-0">
+          <div className="flex md:flex-row gap-5 overflow-x-scroll pb-6 scrollbar-none no-scrollbar snap-x snap-mandatory lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-x-visible lg:pb-0">
             {Product.slice(0, 4).map((product, index) => (
-              <div key={product._id} className="lg:min-w-0">
+              <div
+                key={product._id}
+                className="min-w-[70vw] sm:min-w-[45vw] md:min-w-[33vw] lg:min-w-0 snap-start shrink-0"
+              >
                 <ShowProductCard product={product} index={index} />
               </div>
             ))}

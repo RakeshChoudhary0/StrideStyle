@@ -19,7 +19,7 @@ const ArrivalsSection = () => {
         </div>
 
         {/* Clean, Uniform Full-Width Product Grid */}
-        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4">
+        <div className="w-full grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4">
           {Product.map((prod) => {
             // Find parent configuration to pass color attributes down safely
             const parentData = Parent.find((p) => p._id === prod.parent);
