@@ -14,6 +14,8 @@ import {
   Share2,
   ChevronDown,
   DollarSign,
+  Check,
+  Loader2,
 } from "lucide-react";
 
 interface ProductViewType {
@@ -33,12 +35,32 @@ export default function ProductView({
   const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
-  const [, setCopied] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string | null>("details");
 
-  // Modern, clean handling of explicit number data types
+  // Cart Interactive Button States: 'idle' | 'loading' | 'added'
+  const [cartState, setCartState] = useState<"idle" | "loading" | "added">(
+    "idle",
+  );
+
   const displayPrice = currentProduct.salePrice || currentProduct.basePrice;
   const hasDiscount = currentProduct.discount > 0;
+
+  const handleAddToCart = () => {
+    if (!selectedSize || cartState !== "idle") return;
+
+    setCartState("loading");
+
+    // Simulate async network request
+    setTimeout(() => {
+      setCartState("added");
+
+      // Reset back to idle state after displaying confirmation
+      setTimeout(() => {
+        setCartState("idle");
+      }, 2000);
+    }, 900);
+  };
 
   const handleMobileScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -49,7 +71,7 @@ export default function ProductView({
   const handleShare = async () => {
     const shareData = {
       title: currentProduct.name,
-      text: `Check out the ${currentProduct.name} on our store!`,
+      text: `Check out ${currentProduct.name} on Stride Style!`,
       url: window.location.href,
     };
 
@@ -62,103 +84,78 @@ export default function ProductView({
         await navigator.share(shareData);
         return;
       } catch (err) {
-        if ((err as Error).name !== "AbortError") {
-          console.error("Native share failed:", err);
-        } else {
-          return;
-        }
+        if ((err as Error).name === "AbortError") return;
       }
     }
 
-    if (
-      navigator.clipboard &&
-      typeof navigator.clipboard.writeText === "function"
-    ) {
+    if (navigator.clipboard?.writeText) {
       try {
         await navigator.clipboard.writeText(window.location.href);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
-        return;
-      } catch (copyErr) {
-        console.error("Clipboard API failed:", copyErr);
+      } catch (err) {
+        console.error("Clipboard failure:", err);
       }
-    }
-
-    // Legacy Fallback
-    try {
-      const textArea = document.createElement("textarea");
-      textArea.value = window.location.href;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-999999px";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      const successful = document.execCommand("copy");
-      document.body.removeChild(textArea);
-
-      if (successful) {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }
-    } catch (legacyErr) {
-      console.error("Fallback utility broken:", legacyErr);
     }
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50/60 pb-32 md:pb-20">
-      <div className="fixed top-4 left-4 z-50 md:hidden">
+    <div className="min-h-screen bg-white text-zinc-950 pb-48 sm:pb-32 md:pb-20 select-none antialiased">
+      {/* Floating Back Navigation Action (Mobile Viewport) */}
+      <div className="fixed top-4 left-4 z-40 md:hidden">
         <Link
           href="/shop"
-          className="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-200 active:scale-95 text-zinc-700 bg-white/90 backdrop-blur-md border border-zinc-200/60 shadow-md"
+          className="flex items-center justify-center w-11 h-11 rounded-full text-zinc-900 bg-white/90 backdrop-blur-md border border-zinc-200/80 shadow-md active:scale-95 transition-transform"
         >
-          <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
+          <ChevronLeft className="w-5 h-5" strokeWidth={2} />
         </Link>
       </div>
 
       <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 pt-0 md:pt-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-6 sm:gap-x-8 lg:gap-x-14 items-start">
-          {/* LEFT PANEL: Media Layout Gallery & Mobile Carousel */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-8 sm:gap-x-8 lg:gap-x-12 items-start">
+          {/* =========================================================================
+              LEFT PANEL: Media Gallery Strip & Snap Carousel
+             ========================================================================= */}
           <div className="lg:col-span-7 grid grid-cols-12 gap-3 md:sticky md:top-24">
-            {/* Multi-angle Vertical Strips (Desktop Only) */}
-            <div className="col-span-2 flex-col gap-2.5 max-h-[580px] overflow-y-auto no-scrollbar hidden sm:flex">
+            {/* Desktop Vertical Thumbnail Track */}
+            <div className="col-span-2 flex-col gap-3 max-h-[620px] overflow-y-auto no-scrollbar hidden sm:flex">
               {currentProduct.images.map((img: string, idx: number) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImage(img)}
-                  className={`aspect-4/5 relative rounded-lg overflow-hidden bg-zinc-100 border transition-all duration-200 ${
+                  className={`aspect-[4/5] relative rounded-xl overflow-hidden bg-zinc-50 border transition-all duration-200 ${
                     activeImage === img
-                      ? "border-zinc-900 ring-1 ring-zinc-900"
-                      : "border-zinc-200/80 hover:border-zinc-400"
+                      ? "border-zinc-950 ring-1 ring-zinc-950 opacity-100"
+                      : "border-zinc-200/80 hover:border-zinc-400 opacity-70 hover:opacity-100"
                   }`}
                 >
                   <Image
                     src={img}
-                    alt={`View angle ${idx + 1}`}
+                    alt={`Product Angle ${idx + 1}`}
                     fill
                     sizes="10vw"
-                    className="object-cover"
+                    className="object-cover object-center"
                     priority={idx === 0}
                   />
                 </button>
               ))}
             </div>
 
-            {/* Main Interactive Media Wrapper */}
-            <div className="col-span-12 sm:col-span-10 aspect-square sm:rounded-2xl overflow-hidden bg-zinc-100 sm:border border-zinc-200/60 sm:shadow-sm relative group">
-              {/* Desktop View Viewport */}
+            {/* Primary Interactive Viewer Frame */}
+            <div className="col-span-12 sm:col-span-10 aspect-[4/5] sm:rounded-2xl overflow-hidden bg-zinc-50 sm:border border-zinc-100 relative group">
+              {/* Desktop Main Preview */}
               <div className="hidden sm:block w-full h-full relative">
                 <Image
                   src={activeImage}
                   alt={currentProduct.name}
                   fill
                   sizes="(max-width: 1024px) 90vw, 50vw"
-                  className="object-cover transition-all duration-500"
+                  className="object-cover object-center transition-all duration-500"
                   priority
                 />
               </div>
 
-              {/* Mobile View Snap-Scroll Carousel */}
+              {/* Mobile Native Snap-Scroll Frame */}
               <div
                 onScroll={handleMobileScroll}
                 className="sm:hidden w-full h-full flex overflow-x-auto snap-x snap-mandatory no-scrollbar"
@@ -170,49 +167,58 @@ export default function ProductView({
                   >
                     <Image
                       src={img}
-                      alt={`${currentProduct.name} View ${idx + 1}`}
+                      alt={`${currentProduct.name} Mobile View ${idx + 1}`}
                       fill
                       sizes="100vw"
-                      className="object-cover"
+                      className="object-cover object-center"
                       priority={idx === 0}
                     />
                   </div>
                 ))}
               </div>
 
-              {/* Floating Action Utilities */}
-              <div className="absolute top-4 right-4 flex flex-col gap-2.5 z-10">
+              {/* Floating Action Trigger Badges */}
+              <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
                 <button
                   onClick={() => setIsWishlisted(!isWishlisted)}
-                  className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-zinc-200/40 shadow-sm hover:bg-white text-zinc-700 transition-all active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-zinc-200/60 shadow-xs hover:bg-white text-zinc-900 transition-all active:scale-90"
+                  aria-label="Wishlist Item"
                 >
                   <Heart
-                    className={`w-5 h-5 transition-colors ${isWishlisted ? "fill-red-500 text-red-500" : ""}`}
+                    className={`w-4 h-4 transition-colors ${
+                      isWishlisted ? "fill-zinc-950 text-zinc-950" : ""
+                    }`}
                   />
                 </button>
                 <button
                   onClick={handleShare}
-                  className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-zinc-200/40 shadow-sm hover:bg-white text-zinc-700 transition-all active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-zinc-200/60 shadow-xs hover:bg-white text-zinc-900 transition-all active:scale-90 relative"
+                  aria-label="Share Product"
                 >
-                  <Share2 className="w-5 h-5" />
+                  <Share2 className="w-4 h-4" />
+                  {copied && (
+                    <span className="absolute right-12 bg-zinc-950 text-white text-[9px] font-bold tracking-widest px-2 py-1 rounded shadow-sm whitespace-nowrap">
+                      COPIED!
+                    </span>
+                  )}
                 </button>
               </div>
 
               {hasDiscount && (
-                <span className="absolute bottom-5 right-3 bg-zinc-900 text-white font-bold text-[12px] tracking-widest uppercase px-4 py-2 rounded-md shadow-sm">
+                <span className="absolute bottom-4 left-4 z-10 bg-zinc-950/90 backdrop-blur-md text-white font-black text-[9px] tracking-widest uppercase px-3 py-1.5 rounded-md border border-white/10 shadow-xs">
                   {currentProduct.discount}% OFF
                 </span>
               )}
 
-              {/* Mobile Carousel Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:hidden bg-black/20 backdrop-blur-sm px-2.5 py-1.5 rounded-full z-10">
+              {/* Mobile Carousel Page Indicators */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:hidden bg-zinc-950/30 backdrop-blur-md px-3 py-1.5 rounded-full z-10">
                 {currentProduct.images.map((_, idx) => (
                   <span
                     key={idx}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                    className={`h-1 rounded-full transition-all duration-300 ${
                       activeMobileIndex === idx
                         ? "w-4 bg-white"
-                        : "w-1.5 bg-white/50"
+                        : "w-1 bg-white/40"
                     }`}
                   />
                 ))}
@@ -220,45 +226,47 @@ export default function ProductView({
             </div>
           </div>
 
-          {/* RIGHT PANEL: Dynamic Details Pane */}
+          {/* =========================================================================
+              RIGHT PANEL: Product Details, Color Variations, & Sizes
+             ========================================================================= */}
           <div className="lg:col-span-5 space-y-6 px-4 sm:px-0">
-            <div className="space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 block">
-                {parentData?.gender.replace("s", "'s")} Wear •{" "}
+            <div className="space-y-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 block">
+                {parentData?.gender.replace("s", "'s")} Wear &bull;{" "}
                 {parentData?.style}
               </span>
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 leading-tight">
+              <h1 className="text-2xl md:text-4xl font-black tracking-tight text-zinc-950 font-streethead uppercase leading-tight">
                 {parentData?.name}
               </h1>
             </div>
 
             {/* Pricing Section */}
-            <div className="py-3 border-y border-zinc-200/60 flex items-baseline gap-3">
-              <span className="text-3xl font-black text-zinc-900">
+            <div className="py-3.5 border-y border-zinc-100 flex items-baseline gap-3">
+              <span className="text-3xl font-black text-zinc-950">
                 ₹{displayPrice.toLocaleString("en-IN")}
               </span>
               {hasDiscount && (
-                <span className="text-lg text-zinc-400 line-through font-medium">
+                <span className="text-base text-zinc-400 line-through font-medium">
                   ₹{currentProduct.basePrice.toLocaleString("en-IN")}
                 </span>
               )}
             </div>
 
-            {/* Variant Switcher Section */}
-            <div className="space-y-3.5 pt-2">
-              <div className="flex justify-between items-center text-xs tracking-wider font-bold text-zinc-900 uppercase">
+            {/* Color Variant Selector */}
+            <div className="space-y-3 pt-1">
+              <div className="flex justify-between items-center text-xs tracking-wider font-bold text-zinc-950 uppercase">
                 <span>
-                  Selected Color:{" "}
-                  <span className="text-zinc-500 font-medium normal-case">
+                  Color:{" "}
+                  <span className="text-zinc-500 font-medium normal-case ml-1">
                     {currentProduct.colorName}
                   </span>
                 </span>
-                <span className="text-zinc-400 font-medium normal-case">
-                  {variants.length} available
+                <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
+                  {variants.length} COLORS
                 </span>
               </div>
 
-              <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+              <div className="grid grid-cols-5 gap-2.5">
                 {variants.map((v) => {
                   const isCurrentVariant = v.slug === currentProduct.slug;
 
@@ -269,25 +277,25 @@ export default function ProductView({
                       className="group flex flex-col items-center focus:outline-none"
                     >
                       <div
-                        className={`w-full aspect-3/4 relative rounded-xl overflow-hidden bg-zinc-100 border transition-all duration-300 ${
+                        className={`w-full aspect-[3/4] relative rounded-xl overflow-hidden bg-zinc-50 border transition-all duration-200 ${
                           isCurrentVariant
-                            ? "border-zinc-900 ring-2 ring-zinc-900 ring-offset-2 scale-[0.98]"
-                            : "border-zinc-200/80 group-hover:border-zinc-400 group-hover:scale-[1.02]"
+                            ? "border-zinc-950 ring-2 ring-zinc-950 ring-offset-2"
+                            : "border-zinc-200/80 group-hover:border-zinc-400"
                         }`}
                       >
                         <Image
                           src={v.images[0]}
                           alt={v.colorName}
                           fill
-                          sizes="(max-width: 640px) 25vw, 15vw"
-                          className="object-cover"
+                          sizes="(max-width: 640px) 20vw, 10vw"
+                          className="object-cover object-center"
                         />
                       </div>
                       <span
-                        className={`text-[10px] tracking-tight leading-tight mt-1.5 text-center max-w-full truncate px-0.5 line-clamp-1 transition-colors ${
+                        className={`text-[9px] tracking-tight leading-tight mt-1 text-center truncate w-full px-0.5 uppercase ${
                           isCurrentVariant
-                            ? "text-zinc-900 font-bold"
-                            : "text-zinc-500 group-hover:text-zinc-900"
+                            ? "text-zinc-950 font-bold"
+                            : "text-zinc-400 group-hover:text-zinc-950"
                         }`}
                       >
                         {v.colorName}
@@ -298,13 +306,13 @@ export default function ProductView({
               </div>
             </div>
 
-            {/* Sizes Selection Frame */}
-            <div className="space-y-3 pt-2">
-              <div className="flex justify-between items-center text-xs font-bold tracking-wider text-zinc-900 uppercase">
-                <span>Sizes</span>
-                <span className="text-zinc-400 font-medium underline cursor-pointer hover:text-zinc-900 transition-colors normal-case">
-                  Size Chart
-                </span>
+            {/* Size Matrix Selector */}
+            <div className="space-y-3 pt-1">
+              <div className="flex justify-between items-center text-xs font-bold tracking-wider text-zinc-950 uppercase">
+                <span>Select Size</span>
+                <button className="text-zinc-400 text-[10px] font-bold tracking-widest uppercase hover:text-zinc-950 transition-colors underline">
+                  Size Guide
+                </button>
               </div>
 
               <div className="grid grid-cols-4 gap-2">
@@ -319,12 +327,12 @@ export default function ProductView({
                       key={sz}
                       disabled={isOutOfStock}
                       onClick={() => setSelectedSize(sz)}
-                      className={`h-11 rounded-xl text-xs font-bold tracking-wider uppercase border transition-all duration-150 relative ${
+                      className={`h-11 rounded-xl text-xs font-bold tracking-widest uppercase border transition-all duration-150 relative flex items-center justify-center ${
                         isOutOfStock
-                          ? "bg-zinc-50 border-zinc-200 text-zinc-300 cursor-not-allowed line-through"
+                          ? "bg-zinc-50 border-zinc-100 text-zinc-300 cursor-not-allowed line-through"
                           : selectedSize === sz
-                            ? "bg-zinc-900 border-zinc-900 text-white shadow-sm"
-                            : "bg-white border-zinc-200 text-zinc-800 hover:border-zinc-900"
+                            ? "bg-zinc-950 border-zinc-950 text-white shadow-xs"
+                            : "bg-white border-zinc-200/80 text-zinc-900 hover:border-zinc-950"
                       }`}
                     >
                       {sz}
@@ -335,34 +343,59 @@ export default function ProductView({
                   );
                 })}
               </div>
-              <p className="text-[11px] text-zinc-400 text-center pt-1 font-medium">
-                FREE 1-2 day delivery on 5k+ pincodes
+              <p className="text-[10px] text-zinc-400 text-center font-bold tracking-wider uppercase pt-0.5">
+                FREE Dispatch on all local orders
               </p>
             </div>
 
-            {/* Bag Addition CTA Callout */}
+            {/* Desktop Dynamic Interactive CTA Button */}
             <button
-              disabled={!selectedSize}
-              className="w-full h-12 bg-zinc-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-lg transition-all duration-300 hover:bg-zinc-800 active:scale-[0.99] disabled:bg-zinc-200 disabled:text-zinc-400 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2.5"
+              disabled={!selectedSize || cartState !== "idle"}
+              onClick={handleAddToCart}
+              className={`w-full h-12 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-xs hidden sm:flex items-center justify-center gap-2.5 active:scale-[0.99] ${
+                cartState === "added"
+                  ? "bg-emerald-600 text-white border border-emerald-600"
+                  : cartState === "loading"
+                    ? "bg-zinc-900 text-white opacity-90 cursor-wait"
+                    : !selectedSize
+                      ? "bg-zinc-100 text-zinc-400 border border-zinc-200 cursor-not-allowed shadow-none"
+                      : "bg-zinc-950 text-white hover:bg-zinc-800"
+              }`}
             >
-              <ShoppingBag className="w-4 h-4" strokeWidth={2.5} />
-              {selectedSize ? "Add to Bag" : "Select Size to Add"}
+              {cartState === "loading" ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>ADDING TO BAG...</span>
+                </>
+              ) : cartState === "added" ? (
+                <>
+                  <Check className="w-4 h-4 text-white" />
+                  <span>ADDED TO BAG!</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>
+                    {selectedSize ? "ADD TO BAG" : "SELECT SIZE TO ADD"}
+                  </span>
+                </>
+              )}
             </button>
 
-            {/* Accordion Specification Sheets */}
-            <div className="border-t border-zinc-200 pt-2 space-y-1">
+            {/* Accordion Specification Panels */}
+            <div className="border-t border-zinc-100 pt-1 space-y-1">
               {[
                 {
                   id: "details",
-                  label: "Product Details",
+                  label: "Product Description",
                   desc:
                     parentData?.description ||
-                    "Premium garment build detailing standard options.",
+                    "Crafted from heavyweight French Terry cotton. Designed with drop shoulders, dense ribbing, and structured unisex silhouette.",
                 },
                 {
                   id: "delivery",
-                  label: "Delivery & Returns",
-                  desc: "Free standard dispatch tier applied. 7 business day returns permitted on un-worn items.",
+                  label: "Shipping & Returns",
+                  desc: "Dispatched within 24 hours. Standard delivery takes 2-4 business days. Returns accepted within 7 days in original condition.",
                 },
               ].map((tab) => (
                 <div key={tab.id} className="border-b border-zinc-100">
@@ -370,17 +403,17 @@ export default function ProductView({
                     onClick={() =>
                       setActiveTab(activeTab === tab.id ? null : tab.id)
                     }
-                    className="w-full py-3.5 flex justify-between items-center text-xs font-bold tracking-wider text-zinc-900 uppercase text-left"
+                    className="w-full py-3.5 flex justify-between items-center text-xs font-bold tracking-wider text-zinc-950 uppercase text-left"
                   >
                     <span>{tab.label}</span>
                     <ChevronDown
-                      className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${
-                        activeTab === tab.id ? "rotate-180" : ""
+                      className={`w-4 h-4 text-zinc-400 transition-transform duration-200 ${
+                        activeTab === tab.id ? "rotate-180 text-zinc-950" : ""
                       }`}
                     />
                   </button>
                   {activeTab === tab.id && (
-                    <div className="pb-4 text-xs text-zinc-500 leading-relaxed transition-all duration-200">
+                    <div className="pb-4 text-xs text-zinc-500 leading-relaxed font-medium transition-all duration-200">
                       {tab.desc}
                     </div>
                   )}
@@ -388,32 +421,66 @@ export default function ProductView({
               ))}
             </div>
 
-            {/* Trust Badging Segments */}
-            <div className="grid grid-cols-3 gap-2 pt-2 text-[10px] uppercase font-bold tracking-wider text-zinc-400">
-              <div className="flex flex-col items-center gap-1.5 text-center p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/40">
+            {/* Brand Assurance Badges */}
+            <div className="grid grid-cols-3 gap-2 pt-1 text-[9px] uppercase font-bold tracking-widest text-zinc-500">
+              <div className="flex flex-col items-center gap-1.5 text-center p-3 rounded-xl bg-zinc-50 border border-zinc-100">
                 {currentProduct.isFreeDelivery ? (
                   <>
-                    <Truck className="w-4 h-4 text-zinc-600" />
+                    <Truck className="w-4 h-4 text-zinc-900" />
                     <span>Free Shipping</span>
                   </>
                 ) : (
                   <>
-                    <DollarSign className="w-4 h-4 text-zinc-600" />
-                    <span>Shipping Charges</span>
+                    <DollarSign className="w-4 h-4 text-zinc-900" />
+                    <span>Standard Shipping</span>
                   </>
                 )}
               </div>
-              <div className="flex flex-col items-center gap-1.5 text-center p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/40">
-                <RefreshCw className="w-4 h-4 text-zinc-600" />
+              <div className="flex flex-col items-center gap-1.5 text-center p-3 rounded-xl bg-zinc-50 border border-zinc-100">
+                <RefreshCw className="w-4 h-4 text-zinc-900" />
                 <span>7 Day Returns</span>
               </div>
-              <div className="flex flex-col items-center gap-1.5 text-center p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/40">
-                <ShieldCheck className="w-4 h-4 text-zinc-600" />
-                <span>100% Original</span>
+              <div className="flex flex-col items-center gap-1.5 text-center p-3 rounded-xl bg-zinc-50 border border-zinc-100">
+                <ShieldCheck className="w-4 h-4 text-zinc-900" />
+                <span>100% Authentic</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky Purchasing Dock - Positioned safely above Mobile Bottom Navbar */}
+      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom))] inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-zinc-100 p-3 sm:hidden shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+        <button
+          disabled={!selectedSize || cartState !== "idle"}
+          onClick={handleAddToCart}
+          className={`w-full h-12 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-2.5 active:scale-[0.98] ${
+            cartState === "added"
+              ? "bg-emerald-600 text-white"
+              : cartState === "loading"
+                ? "bg-zinc-900 text-white opacity-90 cursor-wait"
+                : !selectedSize
+                  ? "bg-zinc-100 text-zinc-400 border border-zinc-200 cursor-not-allowed"
+                  : "bg-zinc-950 text-white shadow-sm"
+          }`}
+        >
+          {cartState === "loading" ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
+              <span>ADDING TO BAG...</span>
+            </>
+          ) : cartState === "added" ? (
+            <>
+              <Check className="w-4 h-4 text-white" />
+              <span>ADDED TO BAG!</span>
+            </>
+          ) : (
+            <>
+              <ShoppingBag className="w-4 h-4" />
+              <span>{selectedSize ? "ADD TO BAG" : "SELECT SIZE TO ADD"}</span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
