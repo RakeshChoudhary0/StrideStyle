@@ -37,7 +37,7 @@ const MOBILE_LINKS: NavLinkItem[] = [
   { name: "Home", href: "/", icon: Home, shortName: "Home" },
   { name: "Shop", href: "/shop", icon: Search, shortName: "Shop" },
   { name: "Cart", href: "/cart", icon: ShoppingBag, shortName: "Cart" },
-  { name: "Profile", href: "/account", icon: User, shortName: "Profile" },
+  { name: "Profile", href: "/profile", icon: User, shortName: "Profile" },
 ];
 
 const Navbar = () => {
@@ -113,7 +113,7 @@ const DesktopHeader = ({ checkActive, isScrolled }: HeaderProps) => (
     {/* Account Section: Cart and User Profile */}
     <div className="flex items-center justify-end gap-1.5 shrink-0 min-w-[140px]">
       <Link
-        href="/account"
+        href="/profile"
         className={`p-2.5 rounded-full transition-all duration-200 ${
           checkActive("/account")
             ? "text-zinc-950 bg-zinc-100"
