@@ -10,6 +10,13 @@
 !.yarn/releases
 !.yarn/versions
 
+
+.agents
+.claude
+.windsurf
+skills-lock.json
+
+
 # testing
 /coverage
 
@@ -39,3 +46,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
