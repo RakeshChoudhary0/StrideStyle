@@ -1,6 +1,7 @@
 import connectDB from "@/Libs/db/mongo";
 import { ProductModel } from "@/models/Product.Model";
 import { NextRequest, NextResponse } from "next/server";
+import { success } from "zod";
 
 // =====================================================
 // POST : POSTING PRODUCT
@@ -80,10 +81,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
 // =====================================================
 // GET : FETCHING Products
-// const response = await fetch('/api/products')
+// const response = await fetch('/api/products',{
+//   method:"GET",
+//   headers:{
+//     "Content-Type":"application/json",
+//   }
+// })
 // =====================================================
 
 export async function GET() {
@@ -117,6 +122,96 @@ export async function GET() {
     console.error("GET Random Products Error:", error);
     return NextResponse.json(
       { success: false, error: error.message || "Failed to fetch products" },
+      { status: 500 },
+    );
+  }
+}
+
+// =====================================================
+// PATCH : PATCH Products
+// const response = await fetch(`/api/products/?id=${id}`,{
+//   method:"PATCH",
+//   headers:{
+//     "Content-Type":"application/json",
+//   },
+//   body:data,
+// })
+// =====================================================
+
+export async function PATCH(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const { searchParams } = new URL(req.url);
+
+    const id = searchParams.get("id");
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Missing Product ID" },
+        { status: 400 },
+      );
+    }
+
+    const body = await req.json();
+
+    const product = await ProductModel.findByIdAndUpdate(id, body, {
+      new: true,
+      runValidators: true,
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Product updated successfully",
+      productId: product?._id,
+      data: product,
+    });
+    // eslint-disable-next-line
+  } catch (error: any) {
+    console.error("PATCH Product Error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message || "Failed to patch product" },
+      { status: 500 },
+    );
+  }
+}
+
+// =====================================================
+// DELETE : DELETE Products
+// const response = await fetch(`/api/products/?id=${id}`,{
+//   method:"DELETE",
+//   headers:{
+//     "Content-Type":"application/json",
+//   },
+// })
+// =====================================================
+
+export async function DELETE(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const { searchParams } = new URL(req.url);
+
+    const id = searchParams.get("id");
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Missing Product ID" },
+        { status: 400 },
+      );
+    }
+
+    const product = await ProductModel.findByIdAndDelete(id);
+
+    return NextResponse.json({
+      success: true,
+      message: "Product deleted successfully",
+      productId: product?._id,
+      data: product,
+    });
+    // eslint-disable-next-line
+  } catch (error: any) {
+    console.error("DELETE Product Error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message || "Failed to delete product" },
       { status: 500 },
     );
   }

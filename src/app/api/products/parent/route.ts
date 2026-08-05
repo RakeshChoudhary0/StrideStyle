@@ -1,5 +1,6 @@
 import connectDB from "@/Libs/db/mongo";
 import { ParentModel } from "@/models/parent.model";
+import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 // =====================================================
@@ -65,8 +66,6 @@ import { NextRequest, NextResponse } from "next/server";
 //     isActive: { type: Boolean, default: true },
 //   },
 // =====================================================
-
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -154,8 +153,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
-
 // =====================================================
 //  GET : FETCHING PARENTS
 //
@@ -163,8 +160,6 @@ export async function POST(req: NextRequest) {
 // const response = await fetch(`/api/products/parent?slug=${productSlug}`);
 // const response = await fetch(`/api/products/parent`)
 // =====================================================
-
-
 
 export async function GET(req: NextRequest) {
   try {
@@ -215,3 +210,108 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+// ============================================
+// DELETE : DELETING PARENTS
+// const response = await fetch(`/api/products/parent?id=${parentId}`);
+// ============================================
+
+export async function DELETE(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Parent ID is required" },
+        { status: 400 },
+      );
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid Parent ID format" },
+        { status: 400 },
+      );
+    }
+
+    const result = await ParentModel.findByIdAndDelete(id);
+    if (!result) {
+      return NextResponse.json(
+        { success: false, error: "Parent not found" },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Parent deleted successfully",
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error("DELETE Parent Error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message || "Failed to delete parent" },
+      { status: 500 },
+    );
+  }
+}
+
+// ============================================
+// PATCH : PATCH PARENTS
+// const response = await fetch(`/api/products/parent?id=${parentId}`);
+// ============================================
+
+export async function PATCH(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const body = await req.json();
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Parent ID is required" },
+        { status: 400 },
+      );
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid Parent ID format" },
+        { status: 400 },
+      );
+    }
+
+    const result = await ParentModel.findByIdAndUpdate(id, body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!result) {
+      return NextResponse.json(
+        { success: false, error: "Parent not found" },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Parent updated successfully",
+      data: result,
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error("PATCH Parent Error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message || "Failed to patch parent" },
+      { status: 500 },
+    );
+  }
+}
+
