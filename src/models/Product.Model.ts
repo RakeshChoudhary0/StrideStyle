@@ -1,8 +1,19 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 import "./parent.model"; // Guarantees Parent model registration
 
+export type TSize =
+  | "XS"
+  | "S"
+  | "M"
+  | "L"
+  | "XL"
+  | "XXL"
+  | "3XL"
+  | "4XL"
+  | "5XL";
+
 export interface ISizeStock {
-  size: "XS" | "S" | "M" | "L" | "XL" | "XXL" | "3XL";
+  size: TSize;
   stock: number;
   sku?: string; // Optional per-size SKU (e.g., ART-HD-450-BLK-M)
 }
@@ -22,14 +33,13 @@ export interface IProduct extends Document {
   // Pricing
   basePrice: number;
   salePrice: number;
-  discount: number; // Automatically calculated or manually set percentage
+  discount: number; // Automatically calculated percentage
 
   // Media
   images: string[];
-  sizeChartUrl?: string; // Size guide image URL
 
   // Inventory & Sizing
-  sizes: string[];
+  sizes: TSize[];
   stock: ISizeStock[];
 
   // Logistics & Flags
@@ -57,20 +67,21 @@ const ProductSchema = new Schema<IProduct>(
       trim: true,
       index: true,
     },
-    name: { type: String, required: true },
-    slug: { type: String, required: true, unique: true, index: true },
-
-    color: { type: String, required: true },
-    colorName: { type: String, required: true },
-
+    name: { type: String, required: true, trim: true },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+      trim: true,
+    },
+    color: { type: String, required: true, trim: true },
+    colorName: { type: String, required: true, trim: true },
     basePrice: { type: Number, required: true },
     salePrice: { type: Number, required: true },
     discount: { type: Number, default: 0 },
-
     images: [{ type: String, required: true }],
-    sizeChartUrl: { type: String },
-
-    sizes: [{ type: String, required: true }],
+    sizes: [{ type: String }],
     stock: [
       {
         size: {
@@ -79,7 +90,7 @@ const ProductSchema = new Schema<IProduct>(
           required: true,
         },
         stock: { type: Number, required: true, default: 0 },
-        sku: { type: String, uppercase: true },
+        sku: { type: String, uppercase: true, trim: true },
       },
     ],
 
@@ -90,9 +101,14 @@ const ProductSchema = new Schema<IProduct>(
   { timestamps: true },
 );
 
-// Pre-save middleware to calculate discount percentage dynamically
-
+// Modern Mongoose pre-save middleware (No `next()` callback)
 ProductSchema.pre("save", function () {
+  // 1. Automatically extract available sizes from stock array
+  if (this.stock && this.stock.length > 0) {
+    this.sizes = this.stock.map((item) => item.size);
+  }
+
+  // 2. Automatically calculate discount percentage
   if (this.basePrice > 0 && this.salePrice < this.basePrice) {
     this.discount = Math.round(
       ((this.basePrice - this.salePrice) / this.basePrice) * 100,

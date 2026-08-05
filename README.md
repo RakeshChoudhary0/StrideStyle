@@ -6,7 +6,7 @@ An enterprise-grade, high-performance clothing storefront built with **Next.js (
 
 ## 🏛️ Project Directory Structure
 
-```text
+```
 src/
 ├── app/
 │   ├── layout.tsx
@@ -40,5 +40,3 @@ src/
 ```
 
 ---
-
-

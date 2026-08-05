@@ -30,15 +30,15 @@ export interface IParent extends Document {
   // Apparel Specifications
   description: string;
   fabric: IFabricDetail;
-  careInstructions: string[];  // e.g., ["Machine wash cold", "Do not tumble dry"]
-  features: string[];  // e.g., ["Drop shoulder", "Double-lined hood", "Ribbed cuffs"]
+  careInstructions: string[]; // e.g., ["Machine wash cold", "Do not tumble dry"]
+  features: string[]; // e.g., ["Drop shoulder", "Double-lined hood", "Ribbed cuffs"]
+  sizeChart?: string;
 
   // Variants & Marketing Flags
   totalColors: IParentColor[];
   isFeatured: boolean;
   isNewArrival: boolean;
   isActive: boolean; // Admin toggle to show/hide entire style
-
   createdAt: Date;
   updatedAt: Date;
 }
@@ -55,8 +55,14 @@ const ParentSchema = new Schema<IParent>(
       index: true,
     },
     name: { type: String, required: true, trim: true },
-    parentSlug: { type: String, required: true, unique: true, index: true },
-    categorySlug: { type: String, required: true, index: true },
+    parentSlug: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+      trim: true,
+    },
+    categorySlug: { type: String, required: true, index: true, trim: true },
     gender: {
       type: String,
       enum: ["mens", "womens", "unisex"],
@@ -68,7 +74,7 @@ const ParentSchema = new Schema<IParent>(
       enum: ["Topwear", "Bottomwear", "Outerwear", "Accessories"],
       required: true,
     },
-    style: { type: String, required: true },
+    style: { type: String, required: true, trim: true },
     tags: [{ type: String, index: true }],
 
     description: { type: String, required: true },
@@ -82,12 +88,17 @@ const ParentSchema = new Schema<IParent>(
 
     totalColors: [
       {
-        colorName: { type: String, required: true },
-        hex: { type: String, required: true },
-        productSlug: { type: String, required: true },
+        colorName: { type: String, required: true, trim: true },
+        hex: { type: String, required: true, trim: true },
+        productSlug: { type: String, required: true, trim: true },
         isAvailable: { type: Boolean, default: true },
       },
     ],
+
+    sizeChart: {
+      type: String,
+      trim: true,
+    },
 
     isFeatured: { type: Boolean, default: false },
     isNewArrival: { type: Boolean, default: false },
@@ -96,7 +107,7 @@ const ParentSchema = new Schema<IParent>(
   { timestamps: true },
 );
 
-// Indexes for super-fast search queries
+// Indexes for super-fast text search queries
 ParentSchema.index({ name: "text", articleName: "text", tags: "text" });
 
 export const ParentModel: Model<IParent> =
