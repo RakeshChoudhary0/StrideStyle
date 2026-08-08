@@ -1,0 +1,91 @@
+{
+  "articleName": "CheatXCode Textured Zipper Trackpant CXC027",
+  "articleCode": "CXC027",
+  "name": "Textured Performance Slim-Fit Trackpant",
+  "parentSlug": "textured-performance-slim-fit-trackpant-cxc027",
+
+  "categorySlug": "trackpants",
+  "gender": "mens",
+  "type": "Bottomwear",
+  "style": "Slim Fit",
+  "tags": [
+    "Trackpants",
+    "Joggers",
+    "Bottomwear",
+    "Textured",
+    "Zipper Pockets",
+    "Cheatxcode",
+    "Activewear",
+    "Streetwear"
+  ],
+
+  "description": "Elevate your active wardrobe with the CXC027 Textured Performance Trackpant. Crafted from a premium textured knit fabric, these trackpants feature dual side-zipper pockets for secure storage, an elasticated waistband with metal-tipped drawstrings, and a refined embroidered brand logo below the left pocket.",
+
+  "fabric": {
+    "composition": "92% Polyester, 8% Elastane Textured Knit",
+    "weightGSM": 280,
+    "weave": "Ribbed Textured Knit"
+  },
+
+  "careInstructions": [
+    "Machine wash cold inside out with like colors",
+    "Do not bleach",
+    "Tumble dry low or line dry in shade",
+    "Cool iron on reverse side if needed",
+    "Do not iron directly on zippers or embroidery"
+  ],
+
+  
+  "features": [
+    "High-density textured ribbed stretch fabric",
+    "Dual deep side pockets with smooth contrast zippers",
+    "Elastic waistband with external flat drawstring and metal aglets",
+    "Signature embroidered logo detail on left thigh",
+    "Tapered leg construction for a sharp, modern silhouette"
+  ],
+
+  "totalColors": [
+    {
+      "colorName": "Slate Blue",
+      "hex": "#5C768D",
+      "productSlug": "textured-performance-trackpant-cxc027-slate-blue",
+      "isAvailable": true
+    },
+    {
+      "colorName": "Olive Green",
+      "hex": "#434B3E",
+      "productSlug": "textured-performance-trackpant-cxc027-olive-green",
+      "isAvailable": true
+    },
+    {
+      "colorName": "Light Ash Grey",
+      "hex": "#9E9E9E",
+      "productSlug": "textured-performance-trackpant-cxc027-light-ash-grey",
+      "isAvailable": true
+    },
+    {
+      "colorName": "Sage Green",
+      "hex": "#586F6B",
+      "productSlug": "textured-performance-trackpant-cxc027-sage-green",
+      "isAvailable": true
+    },
+    {
+      "colorName": "Camel Brown",
+      "hex": "#8C6D4F",
+      "productSlug": "textured-performance-trackpant-cxc027-camel-brown",
+      "isAvailable": true
+    },
+    {
+      "colorName": "Charcoal Black",
+      "hex": "#2B2C30",
+      "productSlug": "textured-performance-trackpant-cxc027-charcoal-black",
+      "isAvailable": true
+    }
+  ],
+
+  "sizeChart": "not provided",
+
+  "isFeatured": true,
+  "isNewArrival": true,
+  "isActive": true
+}

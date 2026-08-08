@@ -7,12 +7,7 @@ const nextConfig: NextConfig = {
     browserToTerminal: false,
   },
 
-  allowedDevOrigins: [
-    "10.39.97.149",
-    "10.243.36.149",
-    "10.37.120.149",
-    "10.170.117.149",
-  ],
+  allowedDevOrigins: ["10.89.11.149"],
 
   images: {
     remotePatterns: [
@@ -37,6 +32,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cloudflare-ipfs.com",
+        pathname: "/**",
       },
     ],
   },

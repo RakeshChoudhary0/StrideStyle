@@ -81,7 +81,6 @@ const ProductSchema = new Schema<IProduct>(
     salePrice: { type: Number, required: true },
     discount: { type: Number, default: 0 },
     images: [{ type: String, required: true }],
-    sizes: [{ type: String }],
     stock: [
       {
         size: {

@@ -12,7 +12,8 @@
     "@icons-pack/react-simple-icons": "^13.11.1",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
-    "cloudinary": "^2.10.0",
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.2.8",
     "lucide-react": "^1.17.0",
     "mongoose": "^9.9.0",
     "next": "16.2.9",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^6.0.0",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^20",
     "@types/react": "^19",

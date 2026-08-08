@@ -1,0 +1,153 @@
+[
+  {
+    "parent": "66b26d3e8f1c2a0012345678",
+    "variantSku": "CXC027-SLBL",
+    "name": "Textured Performance Slim-Fit Trackpant - Slate Blue",
+    "slug": "textured-performance-trackpant-cxc027-slate-blue",
+    "color": "#5C768D",
+    "colorName": "Slate Blue",
+    "basePrice": 2499,
+    "salePrice": 1199,
+    "images": [
+      "https://assets.stridestyle.com/products/cxc027/slate-blue-front.jpg",
+      "https://assets.stridestyle.com/products/cxc027/slate-blue-pocket-detail.jpg",
+      "https://assets.stridestyle.com/products/cxc027/slate-blue-back.jpg"
+    ],
+    "stock": [
+      { "size": "S", "stock": 15, "sku": "CXC027-SLBL-S" },
+      { "size": "M", "stock": 25, "sku": "CXC027-SLBL-M" },
+      { "size": "L", "stock": 30, "sku": "CXC027-SLBL-L" },
+      { "size": "XL", "stock": 20, "sku": "CXC027-SLBL-XL" },
+      { "size": "XXL", "stock": 10, "sku": "CXC027-SLBL-XXL" }
+    ],
+    "weightGrams": 420,
+    "isFreeDelivery": true,
+    "isActive": true
+  },
+  {
+    "parent": "66b26d3e8f1c2a0012345678",
+    "variantSku": "CXC027-OLGR",
+    "name": "Textured Performance Slim-Fit Trackpant - Olive Green",
+    "slug": "textured-performance-trackpant-cxc027-olive-green",
+    "color": "#434B3E",
+    "colorName": "Olive Green",
+    "basePrice": 2499,
+    "salePrice": 199,
+    "images": [
+      "https://assets.stridestyle.com/products/cxc027/olive-green-front.jpg",
+      "https://assets.stridestyle.com/products/cxc027/olive-green-pocket-detail.jpg",
+      "https://assets.stridestyle.com/products/cxc027/olive-green-back.jpg"
+    ],
+    "stock": [
+      { "size": "S", "stock": 10, "sku": "CXC027-OLGR-S" },
+      { "size": "M", "stock": 18, "sku": "CXC027-OLGR-M" },
+      { "size": "L", "stock": 22, "sku": "CXC027-OLGR-L" },
+      { "size": "XL", "stock": 12, "sku": "CXC027-OLGR-XL" },
+      { "size": "XXL", "stock": 5, "sku": "CXC027-OLGR-XXL" }
+    ],
+    "weightGrams": 420,
+    "isFreeDelivery": true,
+    "isActive": true
+  },
+  {
+    "parent": "66b26d3e8f1c2a0012345678",
+    "variantSku": "CXC027-CBRN",
+    "name": "Textured Performance Slim-Fit Trackpant - Camel Brown",
+    "slug": "textured-performance-trackpant-cxc027-camel-brown",
+    "color": "#8C6D4F",
+    "colorName": "Camel Brown",
+    "basePrice": 2499,
+    "salePrice": 1559,
+    "images": [
+      "https://assets.stridestyle.com/products/cxc027/camel-brown-front.jpg",
+      "https://assets.stridestyle.com/products/cxc027/camel-brown-pocket-detail.jpg",
+      "https://assets.stridestyle.com/products/cxc027/camel-brown-back.jpg"
+    ],
+    "stock": [
+      { "size": "S", "stock": 8, "sku": "CXC027-CBRN-S" },
+      { "size": "M", "stock": 20, "sku": "CXC027-CBRN-M" },
+      { "size": "L", "stock": 25, "sku": "CXC027-CBRN-L" },
+      { "size": "XL", "stock": 15, "sku": "CXC027-CBRN-XL" },
+      { "size": "XXL", "stock": 8, "sku": "CXC027-CBRN-XXL" }
+    ],
+    "weightGrams": 420,
+    "isFreeDelivery": false,
+    "isActive": true
+  },
+  {
+    "parent": "66b26d3e8f1c2a0012345678",
+    "variantSku": "CXC027-CHBLK",
+    "name": "Textured Performance Slim-Fit Trackpant - Charcoal Black",
+    "slug": "textured-performance-trackpant-cxc027-charcoal-black",
+    "color": "#2B2C30",
+    "colorName": "Charcoal Black",
+    "basePrice": 2499,
+    "salePrice": 299,
+    "images": [
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-front.jpg",
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-pocket-detail.jpg",
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-back.jpg"
+    ],
+    "stock": [
+      { "size": "S", "stock": 12, "sku": "CXC027-CHBLK-S" },
+      { "size": "M", "stock": 30, "sku": "CXC027-CHBLK-M" },
+      { "size": "L", "stock": 35, "sku": "CXC027-CHBLK-L" },
+      { "size": "XL", "stock": 25, "sku": "CXC027-CHBLK-XL" },
+      { "size": "XXL", "stock": 14, "sku": "CXC027-CHBLK-XXL" }
+    ],
+    "weightGrams": 420,
+    "isFreeDelivery": false,
+    "isActive": true
+  },
+
+  {
+    "parent": "66b26d3e8f1c2a0012345678",
+    "variantSku": "CXC027-CHBLK",
+    "name": "Textured Performance Slim-Fit Trackpant - Charcoal Black",
+    "slug": "textured-performance-trackpant-cxc027-charcoal-black",
+    "color": "#2B2C30",
+    "colorName": "Charcoal Black",
+    "basePrice": 2499,
+    "salePrice": 299,
+    "images": [
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-front.jpg",
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-pocket-detail.jpg",
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-back.jpg"
+    ],
+    "stock": [
+      { "size": "S", "stock": 12, "sku": "CXC027-CHBLK-S" },
+      { "size": "M", "stock": 30, "sku": "CXC027-CHBLK-M" },
+      { "size": "L", "stock": 35, "sku": "CXC027-CHBLK-L" },
+      { "size": "XL", "stock": 25, "sku": "CXC027-CHBLK-XL" },
+      { "size": "XXL", "stock": 14, "sku": "CXC027-CHBLK-XXL" }
+    ],
+    "weightGrams": 420,
+    "isFreeDelivery": false,
+    "isActive": true
+  },
+  {
+    "parent": "66b26d3e8f1c2a0012345678",
+    "variantSku": "CXC027-CHBLK",
+    "name": "Textured Performance Slim-Fit Trackpant - Charcoal Black",
+    "slug": "textured-performance-trackpant-cxc027-charcoal-black",
+    "color": "#2B2C30",
+    "colorName": "Charcoal Black",
+    "basePrice": 2499,
+    "salePrice": 299,
+    "images": [
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-front.jpg",
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-pocket-detail.jpg",
+      "https://assets.stridestyle.com/products/cxc027/charcoal-black-back.jpg"
+    ],
+    "stock": [
+      { "size": "S", "stock": 12, "sku": "CXC027-CHBLK-S" },
+      { "size": "M", "stock": 30, "sku": "CXC027-CHBLK-M" },
+      { "size": "L", "stock": 35, "sku": "CXC027-CHBLK-L" },
+      { "size": "XL", "stock": 25, "sku": "CXC027-CHBLK-XL" },
+      { "size": "XXL", "stock": 14, "sku": "CXC027-CHBLK-XXL" }
+    ],
+    "weightGrams": 420,
+    "isFreeDelivery": false,
+    "isActive": true
+  }
+]
