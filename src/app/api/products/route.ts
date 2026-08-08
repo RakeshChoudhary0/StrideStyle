@@ -1,7 +1,6 @@
 import connectDB from "@/Libs/db/mongo";
 import { ProductModel } from "@/models/Product.Model";
 import { NextRequest, NextResponse } from "next/server";
-import { success } from "zod";
 
 // =====================================================
 // POST : POSTING PRODUCT
