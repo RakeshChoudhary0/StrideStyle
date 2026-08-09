@@ -47,13 +47,11 @@ enum PaymentStatus {
   FAILED
   REFUNDED
 }
-
 enum AddressType {
   SHIPPING
   BILLING
   BOTH
 }
-
 // --------------------------------------
 // USER MODEL
 // --------------------------------------
@@ -64,6 +62,8 @@ model User {
   phone        String @unique
   email        String @unique
   passwordHash String
+  isVerified   Boolean  @default(false)
+  verifiedTime DateTime?
 
   cartItems CartItem[]
   favorites Favorite[]

@@ -39,6 +39,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!user.isVerified) {
+      return NextResponse.json(
+        { error: "User is not verified" },
+        { status: 401 },
+      );
+    }
+
     // Generate JWT Tokens
     const tokenPayload = {
       userId: user.id,
@@ -48,15 +55,14 @@ export async function POST(req: NextRequest) {
     const accessToken = await signAccessToken(tokenPayload);
     const refreshToken = await signRefreshToken(tokenPayload);
 
-    // Set Refresh Token in Cookie
     const cookieStore = await cookies();
 
     cookieStore.set("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Fix 2: Works in localhost (http) and prod (https)
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days in seconds
+      maxAge: 60 * 60 * 24 * 7,
     });
 
     return NextResponse.json({
@@ -66,6 +72,7 @@ export async function POST(req: NextRequest) {
         id: user.id,
         name: user.name,
         email: user.email,
+        isVerified: user.isVerified,
       },
       accessToken,
     });
